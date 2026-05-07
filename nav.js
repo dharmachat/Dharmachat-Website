@@ -379,8 +379,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const key = Object.keys(thumbMap).find(k => href.includes(k));
       const thumb = rc.querySelector('.related-thumb');
       if (key && thumb) {
-        thumb.innerHTML = `<img src="${thumbMap[key]}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">`;
-        thumb.style.cssText = 'height:100px;overflow:hidden;font-size:0;padding:0;';
+        thumb.innerHTML = `<img src="${thumbMap[key]}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:8px 8px 0 0;">`;
+        thumb.style.cssText = 'height:100px;overflow:hidden;font-size:0;padding:0;border-radius:8px 8px 0 0;';
+        rc.style.borderRadius = '10px';
+        rc.style.overflow = 'hidden';
       }
     });
   });
