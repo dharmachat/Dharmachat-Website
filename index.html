@@ -1453,12 +1453,12 @@ loadShloka();
 
 <!-- DOWNLOAD CTA -->
 <!-- FIX: Added id="download-section" so the scroll target works -->
-<section id="download-section" style="background:linear-gradient(160deg,#3E0000,#5A0A0A);padding:56px 24px;text-align:center;color:white;position:relative;overflow:hidden">
+<section id="download-section" style="background:linear-gradient(160deg,#3E0000,#5A0A0A);padding:48px 24px;text-align:center;color:white;position:relative;overflow:hidden">
   <div style="max-width:720px;margin:0 auto">
-    <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(28px,4vw,42px);margin-bottom:12px">DharmaChat Mobile App</h2>
-    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:19px;color:rgba(255,255,255,0.7);margin-bottom:20px">Launching soon on Android &amp; iOS</p>
+    <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(28px,4vw,42px);margin-bottom:8px">DharmaChat Mobile App</h2>
+    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:19px;color:rgba(255,255,255,0.7);margin-bottom:16px">Launching soon on Android &amp; iOS</p>
 
-    <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:28px;">
+    <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
       <a href="#" style="display:block;opacity:0.9;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">
         <img src="app-store-badge.svg" style="height:56px;width:auto;display:block;" alt="Download on the App Store" loading="lazy">
       </a>
@@ -1468,10 +1468,9 @@ loadShloka();
     </div>
 
     <div style="max-width:420px;margin:0 auto">
-      <!-- FIX: Changed id from "appEmail" to match the notifyForApp() function -->
-      <input id="appEmail" type="email" placeholder="Your email address" style="width:100%;padding:16px 20px;border-radius:50px;border:1px solid rgba(212,160,23,0.4);background:rgba(255,255,255,0.1);color:white;font-size:16px;outline:none;margin-bottom:16px">
-      <div id="appNotifyMsg" style="min-height:20px;margin-bottom:12px;font-family:'Cinzel',serif;font-size:13px;"></div>
-      <button onclick="notifyForApp()" style="width:100%;padding:16px;background:linear-gradient(135deg,var(--saffron),var(--gold));border:none;border-radius:50px;color:white;font-family:'Cinzel',serif;font-size:15px;font-weight:700;cursor:pointer">Notify Me When App Launches </button>
+      <input id="appEmail" type="email" placeholder="Your email address" style="width:100%;padding:14px 20px;border-radius:50px;border:1px solid rgba(212,160,23,0.4);background:rgba(255,255,255,0.1);color:white;font-size:16px;outline:none;margin-bottom:10px">
+      <div id="appNotifyMsg" style="min-height:16px;margin-bottom:8px;font-family:'Cinzel',serif;font-size:13px;"></div>
+      <button onclick="notifyForApp()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--saffron),var(--gold));border:none;border-radius:50px;color:white;font-family:'Cinzel',serif;font-size:15px;font-weight:700;cursor:pointer">Notify Me When App Launches</button>
     </div>
   </div>
 </section>
