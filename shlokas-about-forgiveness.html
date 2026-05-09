@@ -86,20 +86,20 @@ nav{position:sticky;top:0;z-index:100;background:rgba(253,246,227,0.95);backdrop
 
 /* SHLOKAS */
 .shlokas-wrap{max-width:800px;margin:0 auto;padding:60px 24px}
-.shloka-card{background:var(--white);border-radius:20px;padding:36px 32px;margin-bottom:28px;box-shadow:0 4px 24px rgba(107,26,26,0.08);border:1px solid rgba(212,160,23,0.12);transition:transform .2s}
+.shloka-card{background:#FDF6E3;border-radius:20px;padding:36px 40px;margin-bottom:28px;box-shadow:0 4px 24px rgba(107,26,26,0.08);border:1px solid rgba(107,26,26,0.1);transition:transform .2s;position:relative;overflow:hidden}
+.shloka-card::before{content:'“';position:absolute;top:-18px;left:16px;font-size:160px;color:rgba(107,26,26,0.06);font-family:'EB Garamond',serif;line-height:1;pointer-events:none;font-style:normal}
 .shloka-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(107,26,26,0.12)}
-.shloka-num{font-family:'Cinzel Decorative',serif;font-size:36px;color:rgba(212,160,23,0.15);line-height:1;margin-bottom:16px}
-.shloka-sanskrit{font-family:'EB Garamond',serif;font-size:clamp(18px,2.5vw,24px);color:var(--gold);line-height:1.8;margin-bottom:12px;font-style:italic}
-.shloka-translit{font-family:'EB Garamond',serif;font-size:14px;color:var(--text-light);font-style:italic;line-height:1.7;margin-bottom:16px}
+.shloka-num{display:none}
+.shloka-sanskrit{font-family:'EB Garamond',serif;font-size:clamp(20px,2.5vw,26px);color:#6B1A1A;line-height:1.75;margin-bottom:10px;font-style:normal;font-weight:500;text-align:center}
+.shloka-translit{font-family:'EB Garamond',serif;font-size:15px;color:#5A4010;font-style:italic;line-height:1.7;margin-bottom:16px;text-align:center}
 .shloka-divider{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.shloka-divider::before,.shloka-divider::after{content:'';flex:1;height:1px;background:rgba(212,160,23,0.2)}
-.shloka-divider span{color:rgba(212,160,23,0.4);font-size:10px}
-.shloka-meaning{font-size:16px;color:var(--text-dark);line-height:1.8;margin-bottom:16px}
-.shloka-source{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.06em;color:var(--saffron);display:flex;align-items:center;gap:8px}
-.shloka-source::before{content:'';width:20px;height:2px;background:var(--gold);display:inline-block}
-.shloka-actions{display:flex;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(212,160,23,0.1)}
-.shloka-actions button{background:rgba(232,97,26,0.06);border:1px solid rgba(212,160,23,0.15);border-radius:8px;padding:6px 14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;color:var(--text-mid);cursor:pointer;transition:all .2s}
-.shloka-actions button:hover{background:rgba(232,97,26,0.15);border-color:var(--saffron);color:var(--saffron)}
+.shloka-divider::before,.shloka-divider::after{content:'';flex:1;height:1px;background:rgba(107,26,26,0.15)}
+.shloka-divider span{color:rgba(107,26,26,0.25);font-size:10px}
+.shloka-meaning{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:#3E0000;line-height:1.8;margin-bottom:16px;text-align:center}
+.shloka-source{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;color:#8B6035;text-align:right;display:block}
+.shloka-actions{display:flex;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(107,26,26,0.08)}
+.shloka-actions button{background:rgba(62,0,0,0.04);border:1px solid rgba(107,26,26,0.12);border-radius:8px;padding:6px 14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;color:var(--text-mid);cursor:pointer;transition:all .2s}
+.shloka-actions button:hover{background:rgba(232,97,26,0.1);border-color:var(--saffron);color:var(--saffron)}
 
 /* CTA */
 .cta-section{background:linear-gradient(160deg,var(--maroon-dk),#4A0A00);padding:60px 24px;text-align:center}
@@ -147,7 +147,7 @@ footer a{color:var(--gold-lt);text-decoration:none}
 <section class="hero">
   <div class="hero-breadcrumb"><a href="index.html">Home</a> <span>›</span> <a href="index.html#sacred-verses">Sacred Shlokas</a> <span>›</span> <a href="#">Shlokas About Forgiveness</a></div>
   <span class="hero-emoji">🌸</span>
-  <div class="hero-cat">HEALING & PEACE</div>
+  <div class="hero-cat">SACRED SHLOKA</div>
   <h1>Shlokas About Forgiveness</h1>
   <p>Forgiveness (Kshama) is considered one of the most exalted virtues in Hindu dharma. The Mahabharata declares it superior to charity, truth, and even asceticism. To forgive is to release oneself from the chains of resentment and walk freely on the path of dharma. These shlokas illuminate the transformative power of forgiveness.</p>
 </section>
