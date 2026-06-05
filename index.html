@@ -581,6 +581,63 @@
     100% { box-shadow: 0 0 20px 8px rgba(212,160,23,0.6); }
   }
 </style>
+<style>
+  /* ========== PREMIUM SCREENSHOT / SHOWCASE LAYER ========== */
+  .device{
+    position:relative; width:268px; aspect-ratio:390/844; flex:0 0 auto;
+    background:linear-gradient(160deg,#140a06,#2a0d0d);
+    border-radius:42px; padding:8px;
+    /* aspect updated to include the screenshot's new top safe-area band */
+    box-shadow:0 36px 80px rgba(0,0,0,.5), 0 0 0 2px rgba(212,160,23,.4), inset 0 0 0 1px rgba(255,255,255,.06);
+  }
+  .device .screen{ position:relative; width:100%; height:100%; border-radius:34px; overflow:hidden; background:#3E0000; }
+  .device .screen img{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+  /* Dynamic Island */
+  .device .screen::after{ content:''; position:absolute; top:1.6%; left:50%; transform:translateX(-50%); width:32%; height:4%; background:#0a0a0a; border-radius:99px; z-index:6; box-shadow:inset 0 0 1px rgba(255,255,255,0.15); }
+  .device-glow::before{
+    content:''; position:absolute; inset:-14% -10%; z-index:-1; border-radius:50%;
+    background:radial-gradient(closest-side, rgba(240,192,64,.30), rgba(232,97,26,.10) 60%, transparent 76%);
+    filter:blur(6px);
+  }
+
+  /* Hero phone */
+  @keyframes floatY{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-14px) } }
+  .hero-visual .device{ width:294px; }
+  .hero-phone{ animation:floatY 6s ease-in-out infinite; will-change:transform; }
+  @media (prefers-reduced-motion: reduce){ .hero-phone{ animation:none; } }
+
+  /* App showcase */
+  .showcase{ background:linear-gradient(165deg,#2A0000 0%,#4A0808 50%,#2A0000 100%); position:relative; overflow:hidden; padding:96px 0; }
+  .showcase::before{ content:'ॐ'; position:absolute; right:-60px; top:-50px; font-size:380px; font-family:'EB Garamond',serif; color:rgba(212,160,23,.045); pointer-events:none; line-height:1; }
+  .showcase-head{ text-align:center; max-width:700px; margin:0 auto 50px; padding:0 24px; position:relative; z-index:2; }
+  .showcase-head .section-tag{ background:rgba(212,160,23,.15); color:var(--gold-lt); }
+  .showcase-head h2{ font-family:'Cinzel Decorative',serif; font-size:clamp(26px,3.6vw,40px); color:var(--gold-lt); line-height:1.2; margin-bottom:14px; }
+  .showcase-head p{ font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:rgba(255,255,255,.6); line-height:1.6; }
+  .filmstrip{
+    display:flex; gap:30px; overflow-x:auto; scroll-snap-type:x mandatory;
+    padding:24px 10vw 30px; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    position:relative; z-index:2;
+  }
+  .filmstrip::-webkit-scrollbar{ display:none; }
+  .film-item{ scroll-snap-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .film-item .device{ width:250px; transition:transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease; }
+  .film-item:hover .device{ transform:translateY(-12px) scale(1.02); box-shadow:0 50px 90px rgba(0,0,0,.55), 0 0 0 2px rgba(212,160,23,.7); }
+  .film-cap{ font-family:'Cinzel',serif; font-size:12px; letter-spacing:.1em; color:var(--gold-lt); text-transform:uppercase; text-align:center; }
+  .film-cap small{ display:block; font-family:'EB Garamond',serif; font-style:italic; font-size:13px; letter-spacing:0; color:rgba(255,255,255,.5); margin-top:5px; text-transform:none; }
+  .showcase-hint{ text-align:center; font-family:'Cinzel',serif; font-size:11px; letter-spacing:.16em; color:rgba(212,160,23,.5); margin-top:6px; position:relative; z-index:2; }
+
+  /* Real screenshots inside the feature rows */
+  .feat-img{ display:flex; justify-content:center; }
+  .feat-img .device{ width:236px; transform:rotate(-3deg); transition:transform .4s ease; }
+  .feat-row.reverse .feat-img .device{ transform:rotate(3deg); }
+  .feat-img .device:hover{ transform:rotate(0deg) translateY(-6px); }
+  .feat-img .device img{ aspect-ratio:auto !important; border-radius:0 !important; box-shadow:none !important; }
+
+  @media (max-width:600px){
+    .film-item .device{ width:226px; }
+    .filmstrip{ padding:24px 16px 30px; }
+  }
+</style>
 </head>
 <body>
 
@@ -594,7 +651,7 @@
     <ul class="nav-links">
       <li><a href="articles.html">Dharma Articles</a></li>
       <li><a href="lessons.html">Lessons</a></li>
-      
+      <li><a href="premium.html">Premium</a></li>
     </ul>
     <div class="nav-cta-wrap" style="display:flex;align-items:center;gap:12px;">
       <button class="nav-search-btn" id="searchBtn" aria-label="Search">
@@ -760,6 +817,7 @@
   function syncDrawerAuth(){
     var navAuth = document.getElementById('navAuth');
     if (!navAuth) return;
+    if (!userRow || !photo || !nameEl || !emailEl || !authSlot) return;
 
     // Signed IN: navAuth will contain an <img> (user photo)
     var userImg = navAuth.querySelector('img');
@@ -828,6 +886,7 @@
       <p class="hero-desc">Explore the Bhagavad Gita, Ramayana, Mahabharata, Upanishads, Vedas and more. Trained exclusively on sacred Hindu scriptures with guidance from learned pandits and acharyas. Available free on all devices.</p>
       <div class="hero-btns" id="heroBtns">
         <a class="btn-primary" href="chat.html">Try DharmaChat Free</a>
+        <a class="btn-outline" href="premium.html" style="color:var(--gold-lt);border-color:rgba(212,160,23,0.6);">View Premium</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat"><strong>3 Questions</strong><span>Free Every Day</span></div>
@@ -837,21 +896,10 @@
     </div><!-- end .hero-content -->
 
     <div class="hero-visual">
-      <div class="phone-mockup">
-        <img src="logo.jpeg" style="width:80px;height:80px;border-radius:50%;object-fit:cover;box-shadow:0 0 30px rgba(212,160,23,0.5);margin-bottom:8px;" alt="DharmaChat" loading="lazy">
-        <div class="phone-title">DharmaChat</div>
-        <div class="phone-verse">
-          "कर्म करो, फल की चिंता मत करो।"<br>
-          <em style="font-size:12px;opacity:.7">Do your duty; do not worry about the fruits.</em>
-          <cite>Bhagavad Gita · 2.47</cite>
-        </div>
-        <div class="phone-chat">
-          <div class="chat-bubble chat-user">What is Dharma?</div>
-          <div class="chat-bubble chat-ai">According to the Mahabharata, Dharma is that which upholds, sustains and supports the universe and all beings within it — Anushasana Parva 113.8.</div>
-        </div>
+      <div class="hero-phone device device-glow">
+        <div class="screen"><img src="app-shots/home.webp" alt="DharmaChat app — your daily dharma dashboard with shloka of the day and sadhana" width="390" height="844"></div>
       </div>
-      <!-- FIX: Removed broken unclosed <div onclick=...> tag; replaced with clean working version -->
-      <div style="background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:12px;padding:12px 16px;text-align:center;margin-top:8px;">
+      <div style="background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:12px;padding:12px 16px;text-align:center;margin-top:4px;">
         <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;color:#F0C040;margin-bottom:4px;cursor:pointer;" onclick="document.getElementById('download-section').scrollIntoView({behavior:'smooth'})">APP COMING SOON ↓</div>
         <div style="font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.7);">Android &amp; iOS — Notify me below</div>
       </div>
@@ -859,6 +907,27 @@
 
   </div><!-- end .hero-inner -->
 </section><!-- end .hero -->
+
+<!-- APP SHOWCASE -->
+<section class="showcase" id="showcase">
+  <div class="showcase-head fade-up">
+    <div class="section-tag">A Look Inside</div>
+    <h2>Every screen, crafted with reverence</h2>
+    <p>From your daily dashboard to a sage who answers at any hour — this is the experience that lives in your pocket.</p>
+  </div>
+  <div class="filmstrip fade-up">
+    <div class="film-item"><div class="device device-glow"><div class="screen"><img src="app-shots/home.webp" loading="lazy" alt="DharmaChat home dashboard"></div></div><div class="film-cap">Today<small>Your daily shloka &amp; sadhana</small></div></div>
+    <div class="film-item"><div class="device device-glow"><div class="screen"><img src="app-shots/chat.webp" loading="lazy" alt="DharmaAI scripture chat"></div></div><div class="film-cap">DharmaAI<small>Ask anything, scripture-sourced</small></div></div>
+    <div class="film-item"><div class="device device-glow"><div class="screen"><img src="app-shots/shloka.webp" loading="lazy" alt="Shloka detail with Sanskrit and commentary"></div></div><div class="film-cap">Shloka<small>Sanskrit, meaning &amp; commentary</small></div></div>
+    <div class="film-item"><div class="device device-glow"><div class="screen"><img src="app-shots/scriptures.webp" loading="lazy" alt="Scripture library, browse by topic"></div></div><div class="film-cap">Shlokas<small>108 verses, browse by topic</small></div></div>
+    <div class="film-item"><div class="device device-glow"><div class="screen"><img src="app-shots/trivia.webp" loading="lazy" alt="Dharma trivia game"></div></div><div class="film-cap">Trivia<small>Learn the epics through play</small></div></div>
+    <div class="film-item"><div class="device device-glow"><div class="screen"><img src="app-shots/meditate.webp" loading="lazy" alt="Guided meditation timer"></div></div><div class="film-cap">Meditate<small>Guided sadhana &amp; timer</small></div></div>
+    <div class="film-item"><div class="device device-glow"><div class="screen"><img src="app-shots/read.webp" loading="lazy" alt="Sacred reads and stories"></div></div><div class="film-cap">Read<small>Stories &amp; living tradition</small></div></div>
+    <div class="film-item"><div class="device device-glow"><div class="screen"><img src="app-shots/prayers.webp" loading="lazy" alt="Prayers for every deity"></div></div><div class="film-cap">Prayers<small>For every beloved deity</small></div></div>
+    <div class="film-item"><div class="device device-glow"><div class="screen"><img src="app-shots/seva.webp" loading="lazy" alt="Seva, service as devotion"></div></div><div class="film-cap">Seva<small>Service as devotion</small></div></div>
+  </div>
+  <div class="showcase-hint">← &nbsp; swipe to explore &nbsp; →</div>
+</section>
 
 <!-- SHLOKA OF THE DAY -->
 <section style="background:linear-gradient(160deg,#2A0000 0%,#4A0808 50%,#2A0000 100%);padding:80px 24px;position:relative;overflow:hidden;">
@@ -1060,7 +1129,7 @@ loadShloka();
     <!-- FEATURE 1: Shloka Finder — image LEFT, text RIGHT -->
     <div class="feat-row fade-up">
       <div class="feat-img">
-        <img src="magnify.png" alt="Shloka Finder — search sacred Sanskrit verses" loading="lazy">
+        <div class="device device-glow"><div class="screen"><img src="app-shots/scriptures.webp" alt="Shloka Finder — browse 108 sacred verses by topic" loading="lazy"></div></div>
       </div>
       <div class="feat-text">
         <h3>Shloka Finder</h3>
@@ -1078,7 +1147,7 @@ loadShloka();
     <!-- FEATURE 2: Dharma Trivia — image RIGHT, text LEFT -->
     <div class="feat-row reverse fade-up">
       <div class="feat-img">
-        <img src="trivia.png" alt="Dharma Trivia — test your knowledge of Hindu scriptures" loading="lazy">
+        <div class="device device-glow"><div class="screen"><img src="app-shots/trivia.webp" alt="Dharma Trivia — test your knowledge of Hindu scriptures" loading="lazy"></div></div>
       </div>
       <div class="feat-text">
         <h3>Dharma Trivia</h3>
@@ -1096,7 +1165,7 @@ loadShloka();
     <!-- FEATURE 3: Epic Characters — image LEFT, text RIGHT -->
     <div class="feat-row fade-up">
       <div class="feat-img">
-        <img src="character.png" alt="Epic Characters — explore divine personalities of Hindu scripture" loading="lazy">
+        <div class="device device-glow"><div class="screen"><img src="app-shots/read.webp" alt="Sacred reads — stories of the epics and divine personalities" loading="lazy"></div></div>
       </div>
       <div class="feat-text">
         <h3>Epic Characters</h3>
@@ -1114,7 +1183,7 @@ loadShloka();
     <!-- FEATURE 4: AI Dharma Guide — image RIGHT, text LEFT -->
     <div class="feat-row reverse fade-up">
       <div class="feat-img">
-        <img src="dharmaai.png" alt="AI Dharma Guide — ask any question about dharma" loading="lazy">
+        <div class="device device-glow"><div class="screen"><img src="app-shots/chat.webp" alt="AI Dharma Guide — ask any question, answered from scripture" loading="lazy"></div></div>
       </div>
       <div class="feat-text">
         <h3>AI Dharma Guide</h3>
@@ -1426,52 +1495,49 @@ loadShloka();
   </div>
 </section>
 
-<!-- COMMUNITY REVIEWS -->
-<section style="background:var(--maroon-dk);padding:80px 0;overflow:hidden;">
-  <div style="text-align:center;padding:0 24px;margin-bottom:48px;">
-    <div class="section-tag" style="margin:0 auto 14px;display:block;width:fit-content;background:rgba(212,160,23,0.15);color:var(--gold-lt);">Community Love</div>
-    <h2 class="section-title" style="color:var(--gold-lt);">What devotees are saying</h2>
-    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:17px;color:rgba(255,255,255,0.5);">Early feedback from our first devotees</p>
-  </div>
-  <div style="position:relative;overflow:hidden;">
-    <div id="reviewTrack" style="display:flex;gap:24px;width:max-content;animation:slideLeft 40s linear infinite;padding:0 24px;">
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"Finally an app that explains the Gita in a way I actually understand. The Sanskrit references are spot on."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Vikram S. · Chennai</div></div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"I grew up abroad and felt distant from my roots. DharmaChat helped me reconnect with the Ramayana beautifully."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Priya A. · London</div></div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"The shloka explanations are extraordinary. Found verses for every challenge in life. Nothing else comes close."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Arjun M. · Bengaluru</div></div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"I use DharmaChat to teach my children about the Mahabharata. Stories are engaging and beautifully explained."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Lakshmi R. · Hyderabad</div></div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"The multilingual support is a game changer. Reading shlokas in Kannada makes it so much more meaningful."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Deepa K. · Mysuru</div></div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"My father can now read shlokas in Tamil. This is truly a seva to our community. Deeply grateful."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Rajan T. · Coimbatore</div></div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"Asked about karma and got the most complete answer with 5 different shlokas. Absolutely incredible."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Suresh P. · Mumbai</div></div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"As a yoga teacher I recommend DharmaChat to all my students. The depth of knowledge is truly impressive."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Meena V. · Pune</div></div>
-      <!-- Duplicates for seamless loop -->
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"Finally an app that explains the Gita in a way I actually understand. The Sanskrit references are spot on."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Vikram S. · Chennai</div></div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"I grew up abroad and felt distant from my roots. DharmaChat helped me reconnect with the Ramayana beautifully."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Priya A. · London</div></div>
-      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:24px;width:300px;flex-shrink:0;"><div style="color:#F0C040;font-size:14px;margin-bottom:10px;">★★★★★</div><p style="font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:14px;">"The shloka explanations are extraordinary. Found verses for every challenge in life. Nothing else comes close."</p><div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);">Arjun M. · Bengaluru</div></div>
-    </div>
-  </div>
-</section>
+<!-- (Community reviews section removed — no live community / real testimonials yet.) -->
 
 <!-- DOWNLOAD CTA -->
-<!-- FIX: Added id="download-section" so the scroll target works -->
-<section id="download-section" style="background:linear-gradient(160deg,#3E0000,#5A0A0A);padding:48px 24px;text-align:center;color:white;position:relative;overflow:hidden">
-  <div style="max-width:720px;margin:0 auto">
-    <h2 style="font-family:'Cinzel Decorative',serif;font-size:clamp(28px,4vw,42px);margin-bottom:8px">DharmaChat Mobile App</h2>
-    <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:19px;color:rgba(255,255,255,0.7);margin-bottom:16px">Launching soon on Android &amp; iOS</p>
-
-    <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
-      <a href="#" style="display:block;opacity:0.9;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">
-        <img src="app-store-badge.svg" style="height:180px;width:auto;display:block;" alt="Download on the App Store" loading="lazy">
-      </a>
-      <a href="#" style="display:block;opacity:0.9;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">
-        <img src="google-play-badge.svg" style="height:180px;width:auto;display:block;" alt="Get it on Google Play" loading="lazy">
-      </a>
+<style>
+  .dl-inner{ max-width:640px; margin:0 auto; text-align:center; position:relative; z-index:2; }
+  .dl-inner .section-tag{ background:rgba(212,160,23,0.15); color:var(--gold-lt); }
+  .dl-inner h2{ font-family:'Cinzel Decorative',serif; font-size:clamp(26px,3.8vw,42px); color:#fff; line-height:1.2; margin:14px 0 12px; }
+  .dl-inner h2 span{ color:var(--gold-lt); }
+  .dl-inner > p{ font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:rgba(255,255,255,0.65); line-height:1.6; margin:0 auto 28px; max-width:480px; }
+  .store-row{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 14px; margin-bottom:32px; }
+  .store-soon{ font-family:'Noto Sans',sans-serif; font-size:0.82rem; font-weight:600; color:rgba(255,255,255,0.55); letter-spacing:.02em; }
+  .store-badge{ display:inline-flex; align-items:center; gap:9px; padding:10px 20px; border-radius:50px; border:1px solid rgba(0,0,0,0.05); background:var(--cream); font-family:'Noto Sans',sans-serif; font-size:0.95rem; font-weight:700; color:#2A1206; box-shadow:0 6px 20px rgba(0,0,0,0.22); transition:transform .2s, box-shadow .2s; }
+  .store-badge:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,0.3); }
+  .store-badge svg{ width:20px; height:20px; }
+  .dl-notify{ display:flex; gap:10px; max-width:440px; margin:0 auto; }
+  .dl-notify input{ flex:1; min-width:0; padding:13px 20px; border-radius:50px; border:1px solid rgba(212,160,23,0.4); background:rgba(255,255,255,0.1); color:#fff; font-size:15px; outline:none; }
+  .dl-notify input::placeholder{ color:rgba(255,255,255,0.45); }
+  .dl-notify button{ padding:13px 26px; background:linear-gradient(135deg,var(--saffron),var(--gold)); border:none; border-radius:50px; color:#fff; font-family:'Cinzel',serif; font-size:14px; font-weight:700; letter-spacing:.04em; cursor:pointer; white-space:nowrap; box-shadow:0 4px 16px rgba(232,97,26,0.4); transition:transform .2s; }
+  .dl-notify button:hover{ transform:translateY(-2px); }
+  @media(max-width:600px){ .dl-notify{ flex-direction:column; } }
+</style>
+<section id="download-section" style="background:linear-gradient(160deg,#3E0000,#5A0A0A);padding:80px 24px;color:white;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(232,97,26,0.14),transparent 55%);pointer-events:none;"></div>
+  <div class="dl-inner">
+    <div class="section-tag">Launching Soon</div>
+    <h2>Take DharmaChat<br><span>wherever you go</span></h2>
+    <p>The full experience is coming to Android &amp; iOS. Be the first to know the moment it goes live.</p>
+    <div class="store-row">
+      <span class="store-soon">Coming soon to</span>
+      <span class="store-badge" aria-label="App Store">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.9 13.1c0-2.5 2.1-3.7 2.2-3.8-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.4 1-4.3 2.6-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.8 3.4-.8s2.1.8 3.5.8 2.3-1.3 3.2-2.5c1-1.5 1.4-2.9 1.4-3-.1 0-2.9-1.1-2.9-4.3ZM14.2 5.6c.7-.9 1.2-2.1 1.1-3.3-1.1 0-2.4.7-3.1 1.6-.7.8-1.3 2-1.1 3.2 1.2.1 2.4-.6 3.1-1.5Z" /></svg>
+        App Store
+      </span>
+      <span class="store-badge" aria-label="Google Play">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.2 2.4c-.4.3-.7.9-.7 1.7v15.8c0 .8.3 1.4.8 1.7l9.2-9.6-9.3-9.6Zm10.4 8.5 2.7-2.8L6.4 2.2l8.2 8.7Zm2.7 5 3.1-1.7c1.3-.7 1.3-1.7 0-2.4l-3.1-1.7-2.9 2.9 2.9 2.9ZM6.4 21.8l10.9-5.9-2.7-2.8-8.2 8.7Z" /></svg>
+        Google Play
+      </span>
     </div>
-
-    <div style="max-width:420px;margin:0 auto">
-      <input id="appEmail" type="email" placeholder="Your email address" style="width:100%;padding:14px 20px;border-radius:50px;border:1px solid rgba(212,160,23,0.4);background:rgba(255,255,255,0.1);color:white;font-size:16px;outline:none;margin-bottom:10px">
-      <div id="appNotifyMsg" style="min-height:16px;margin-bottom:8px;font-family:'Cinzel',serif;font-size:13px;"></div>
-      <button onclick="notifyForApp()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--saffron),var(--gold));border:none;border-radius:50px;color:white;font-family:'Cinzel',serif;font-size:15px;font-weight:700;cursor:pointer">Notify Me When App Launches</button>
+    <div class="dl-notify">
+      <input id="appEmail" type="email" placeholder="Your email address">
+      <button onclick="notifyForApp()">Notify Me</button>
     </div>
+    <div id="appNotifyMsg" style="min-height:18px;margin-top:14px;font-family:'Cinzel',serif;font-size:13px;"></div>
   </div>
 </section>
 

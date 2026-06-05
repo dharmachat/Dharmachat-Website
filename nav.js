@@ -74,6 +74,7 @@ const navLinks = [
   { href:'articles.html',  emoji:'📖', label:'Dharma Articles', badge:'2,000+' },
   { href:'lessons.html',   emoji:'📚', label:'Learn' },
   { href:'chat.html',      emoji:'🤖', label:'AI Chat' },
+  { href:'premium.html',   emoji:'👑', label:'Premium', badge:'7-day free' },
 ];
 
 const googleSVG = (w, h) => `<svg width="${w}" height="${h}" viewBox="0 0 24 24">
