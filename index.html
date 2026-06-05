@@ -898,14 +898,15 @@
     <div class="hero-visual">
       <div class="hero-phone device device-glow">
         <div class="screen"><img src="app-shots/home.webp" alt="DharmaChat app — your daily dharma dashboard with shloka of the day and sadhana" width="390" height="844"></div>
+      </div>
       <a href="#download-section"
-   onclick="setTimeout(function(){var e=document.getElementById('appEmail');if(e)e.focus({preventScroll:true});},700)"
-   style="display:block;text-decoration:none;cursor:pointer;background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:12px;padding:12px 16px;text-align:center;margin-top:32px;transition:background .2s,border-color .2s,transform .2s;"
-   onmouseover="this.style.background='rgba(212,160,23,0.18)';this.style.borderColor='rgba(212,160,23,0.5)';this.style.transform='translateY(-2px)';"
-   onmouseout="this.style.background='rgba(212,160,23,0.1)';this.style.borderColor='rgba(212,160,23,0.25)';this.style.transform='none';">
-  <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;color:#F0C040;margin-bottom:4px;">APP COMING SOON ↓</div>
-  <div style="font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.7);">Android &amp; iOS — Notify me below</div>
-</a>
+         onclick="setTimeout(function(){var e=document.getElementById('appEmail');if(e)e.focus({preventScroll:true});},700)"
+         style="display:block;text-decoration:none;cursor:pointer;background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:12px;padding:12px 16px;text-align:center;margin-top:32px;transition:background .2s,border-color .2s,transform .2s;"
+         onmouseover="this.style.background='rgba(212,160,23,0.18)';this.style.borderColor='rgba(212,160,23,0.5)';this.style.transform='translateY(-2px)';"
+         onmouseout="this.style.background='rgba(212,160,23,0.1)';this.style.borderColor='rgba(212,160,23,0.25)';this.style.transform='none';">
+        <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;color:#F0C040;margin-bottom:4px;">APP COMING SOON ↓</div>
+        <div style="font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.7);">Android &amp; iOS — Notify me below</div>
+      </a>
     </div><!-- end .hero-visual -->
 
   </div><!-- end .hero-inner -->
@@ -1724,8 +1725,8 @@ function notifyForApp() {
 <!-- PWA Banners — mobile only, slide-up animation -->
 <style>
   @keyframes pwaSlideUp {
-    from { transform: translateY(120%); opacity: 0; }
-    to   { transform: translateY(0);    opacity: 1; }
+    from { transform: translateX(-50%) translateY(120%); opacity: 0; }
+    to   { transform: translateX(-50%) translateY(0);    opacity: 1; }
   }
   .pwa-popup {
     display: none;
@@ -1913,32 +1914,28 @@ if ('serviceWorker' in navigator) {
 })();
 </script>
 <script src="dc-premium-unlock.js?v=4"></script>
-  <script>
-(function () {
-  var strip = document.querySelector('.filmstrip');
-  if (!strip) return;
-  var done = false;
-  function nudge() {
-    if (done) return;
-    // skip if it isn't actually scrollable, or the user already scrolled it
-    if (strip.scrollWidth <= strip.clientWidth + 8) return;
-    if (strip.scrollLeft > 4) { done = true; return; }
-    // respect users who prefer no motion
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { done = true; return; }
-    done = true;
-    var peek = Math.min(90, strip.scrollWidth - strip.clientWidth);
-    strip.scrollTo({ left: peek, behavior: 'smooth' });        // nudge: content slides left
-    setTimeout(function () { strip.scrollTo({ left: 0, behavior: 'smooth' }); }, 700); // slide back
+<script>
+(function(){
+  var strip=document.querySelector('.filmstrip');
+  if(!strip)return;
+  var done=false;
+  function nudge(){
+    if(done)return;
+    if(strip.scrollWidth<=strip.clientWidth+8)return;
+    if(strip.scrollLeft>4){done=true;return;}
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches){done=true;return;}
+    done=true;
+    var peek=Math.min(90,strip.scrollWidth-strip.clientWidth);
+    strip.scrollTo({left:peek,behavior:'smooth'});
+    setTimeout(function(){strip.scrollTo({left:0,behavior:'smooth'});},700);
   }
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { setTimeout(nudge, 350); io.disconnect(); }
-      });
-    }, { threshold: 0.4 });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){setTimeout(nudge,350);io.disconnect();}});
+    },{threshold:0.4});
     io.observe(strip);
   } else {
-    setTimeout(nudge, 1200);
+    setTimeout(nudge,1200);
   }
 })();
 </script>
