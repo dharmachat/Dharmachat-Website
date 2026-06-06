@@ -1670,7 +1670,7 @@ loadShloka();
 <!-- Notify Me — MUST be after nav.js so Firebase is already initialised -->
 <script type="module">
 import { getApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs, limit }
+import { getFirestore, collection, addDoc, serverTimestamp }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
 // nav.js already called initializeApp() — just grab the existing instance.
@@ -1693,25 +1693,15 @@ window.notifyForApp = async function () {
   msg.textContent = 'Saving…';
 
   try {
-    // Duplicate check
-    var existing = await getDocs(
-      query(collection(_db, 'notify_me'), where('email', '==', email), limit(1))
-    );
-    if (!existing.empty) {
-      msg.style.color = '#F0C040';
-      msg.textContent = '🙏 You\'re already on the list! We\'ll notify you the moment it launches.';
-      emailEl.value = '';
-    } else {
-      await addDoc(collection(_db, 'notify_me'), {
-        email:     email,
-        createdAt: serverTimestamp(),
-        source:    'website_launch_banner',
-        ua:        navigator.userAgent.slice(0, 200),
-      });
-      msg.style.color = '#F0C040';
-      msg.textContent = '🙏 You\'re on the list! We\'ll notify you the moment the app launches.';
-      emailEl.value = '';
-    }
+    await addDoc(collection(_db, 'notify_me'), {
+      email:     email,
+      createdAt: serverTimestamp(),
+      source:    'website_launch_banner',
+      ua:        navigator.userAgent.slice(0, 200),
+    });
+    msg.style.color = '#F0C040';
+    msg.textContent = '🙏 You\'re on the list! We\'ll notify you the moment the app launches.';
+    emailEl.value = '';
   } catch (err) {
     console.error('notify_me write failed:', err.code, err.message);
     msg.style.color = '#F5832A';
