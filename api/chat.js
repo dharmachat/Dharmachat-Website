@@ -13,9 +13,9 @@ if (!admin.apps.length) {
 
 const ALLOWED_ORIGINS = ['https://dharmachat.in', 'https://www.dharmachat.in'];
 
-// 3 requests per 60-second sliding window per Firebase UID.
+// 3 requests per day (24-hour sliding window) per Firebase UID.
 const RATE_LIMIT = 3;
-const WINDOW_MS  = 60 * 1000;
+const WINDOW_MS  = 24 * 60 * 60 * 1000;
 
 async function checkRateLimit(uid) {
   const db  = admin.firestore();
