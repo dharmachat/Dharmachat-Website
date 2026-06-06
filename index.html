@@ -634,8 +634,12 @@
   .feat-img .device img{ aspect-ratio:auto !important; border-radius:0 !important; box-shadow:none !important; }
 
   @media (max-width:600px){
-    .film-item .device{ width:226px; }
-    .filmstrip{ padding:24px 16px 30px; }
+    /* Phones: let devices fill most of the viewport width so they read clearly */
+    .film-item .device{ width:min(310px, 80vw); }
+    .filmstrip{ padding:24px 10px 30px; }
+    /* Feature-row phones: wider + remove tilt so they don't clip on small screens */
+    .feat-img .device{ width:min(320px, 86vw); transform:none !important; }
+    .feat-row.reverse .feat-img .device{ transform:none !important; }
   }
 </style>
 </head>
