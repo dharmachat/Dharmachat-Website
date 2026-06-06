@@ -26,6 +26,15 @@ service cloud.firestore {
     //   allow read, write: if request.auth != null && request.auth.uid == uid;
     // }
 
+    // App-launch waitlist — anyone can add their email, nobody can read/edit/delete.
+    // Duplicate-check is handled client-side; even if bypassed, duplicates are harmless.
+    match /notify_me/{docId} {
+      allow create: if request.resource.data.email is string
+                    && request.resource.data.email.size() > 0
+                    && request.resource.data.email.size() <= 254;
+      allow read, update, delete: if false;
+    }
+
     // Default-deny everything else. Better to break a feature loudly
     // than leak data silently.
     match /{document=**} {
