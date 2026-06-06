@@ -1551,71 +1551,6 @@ loadShloka();
   </div>
 </section>
 
-<!-- Notify Me — saves email to Firestore notify_me collection -->
-<script type="module">
-import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs, limit }
-  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
-const _cfg = {
-  apiKey:            "AIzaSyDvw26WTzNRsBBgjXG9At60pN8ApDvPB7o",
-  authDomain:        "dharmachat-cc71d.firebaseapp.com",
-  projectId:         "dharmachat-cc71d",
-  storageBucket:     "dharmachat-cc71d.firebasestorage.app",
-  messagingSenderId: "718284855701",
-  appId:             "1:718284855701:web:d7ef64292cd48ffdf13e9c"
-};
-// Reuse the already-initialised default app from nav.js, or init one.
-const _app = getApps().length ? getApps()[0] : initializeApp(_cfg);
-const _db  = getFirestore(_app);
-
-window.notifyForApp = async function () {
-  var emailEl = document.getElementById('appEmail');
-  var msg     = document.getElementById('appNotifyMsg');
-  var email   = (emailEl.value || '').trim().toLowerCase();
-
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    msg.style.color = '#F5832A';
-    msg.textContent = 'Please enter a valid email address.';
-    return;
-  }
-
-  // Disable button while saving
-  var btn = document.querySelector('.dl-notify button');
-  if (btn) { btn.disabled = true; btn.textContent = '...'; }
-  msg.style.color = 'rgba(255,255,255,0.5)';
-  msg.textContent = 'Saving…';
-
-  try {
-    // Check for duplicate before writing
-    var existing = await getDocs(
-      query(collection(_db, 'notify_me'), where('email', '==', email), limit(1))
-    );
-    if (!existing.empty) {
-      msg.style.color = '#F0C040';
-      msg.textContent = '🙏 You\'re already on the list! We\'ll notify you the moment it launches.';
-      emailEl.value = '';
-    } else {
-      await addDoc(collection(_db, 'notify_me'), {
-        email:     email,
-        createdAt: serverTimestamp(),
-        source:    'website_launch_banner',
-        ua:        navigator.userAgent.slice(0, 200),
-      });
-      msg.style.color = '#F0C040';
-      msg.textContent = '🙏 You\'re on the list! We\'ll notify you the moment the app launches.';
-      emailEl.value = '';
-    }
-  } catch (err) {
-    console.error('notify_me write failed:', err);
-    msg.style.color = '#F5832A';
-    msg.textContent = 'Something went wrong. Please try again or email support@dharmachat.in.';
-  } finally {
-    if (btn) { btn.disabled = false; btn.textContent = 'Notify Me'; }
-  }
-};
-</script>
-
 <!-- FAQ -->
 <section class="faq">
   <div class="container">
@@ -1732,6 +1667,60 @@ window.notifyForApp = async function () {
 </script>
 
 <script type="module" src="nav.js"></script>
+<!-- Notify Me — MUST be after nav.js so Firebase is already initialised -->
+<script type="module">
+import { getApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs, limit }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+// nav.js already called initializeApp() — just grab the existing instance.
+const _db = getFirestore(getApp());
+
+window.notifyForApp = async function () {
+  var emailEl = document.getElementById('appEmail');
+  var msg     = document.getElementById('appNotifyMsg');
+  var email   = (emailEl.value || '').trim().toLowerCase();
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.style.color = '#F5832A';
+    msg.textContent = 'Please enter a valid email address.';
+    return;
+  }
+
+  var btn = document.querySelector('.dl-notify button');
+  if (btn) { btn.disabled = true; btn.textContent = '...'; }
+  msg.style.color = 'rgba(255,255,255,0.5)';
+  msg.textContent = 'Saving…';
+
+  try {
+    // Duplicate check
+    var existing = await getDocs(
+      query(collection(_db, 'notify_me'), where('email', '==', email), limit(1))
+    );
+    if (!existing.empty) {
+      msg.style.color = '#F0C040';
+      msg.textContent = '🙏 You\'re already on the list! We\'ll notify you the moment it launches.';
+      emailEl.value = '';
+    } else {
+      await addDoc(collection(_db, 'notify_me'), {
+        email:     email,
+        createdAt: serverTimestamp(),
+        source:    'website_launch_banner',
+        ua:        navigator.userAgent.slice(0, 200),
+      });
+      msg.style.color = '#F0C040';
+      msg.textContent = '🙏 You\'re on the list! We\'ll notify you the moment the app launches.';
+      emailEl.value = '';
+    }
+  } catch (err) {
+    console.error('notify_me write failed:', err.code, err.message);
+    msg.style.color = '#F5832A';
+    msg.textContent = 'Something went wrong — please try again shortly.';
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Notify Me'; }
+  }
+};
+</script>
 <script>
 // Sync Firebase auth to mobile drawer
 (function() {
