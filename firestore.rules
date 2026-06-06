@@ -17,6 +17,13 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // User stats (totalQuestions, questionsToday, firstSeen etc.)
+    // Written server-side by api/chat.js via Admin SDK. Users can read their own.
+    match /users/{uid}/stats/{doc} {
+      allow read:  if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
     // Anything else under /users/{uid} that the app legitimately needs
     // the client to write (preferences, etc.). Add explicit rules here
     // when you introduce them — do NOT broaden to a wildcard.

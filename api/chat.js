@@ -17,6 +17,7 @@ const ALLOWED_ORIGINS = ['https://dharmachat.in', 'https://www.dharmachat.in'];
 const RATE_LIMIT = 3;
 const WINDOW_MS  = 24 * 60 * 60 * 1000;
 
+// ── Rate limit ──────────────────────────────────────────────────────────────
 async function checkRateLimit(uid) {
   const db  = admin.firestore();
   const ref = db.collection('ratelimits').doc(uid);
@@ -26,7 +27,7 @@ async function checkRateLimit(uid) {
     const snap = await tx.get(ref);
     const data = snap.exists ? snap.data() : { requests: [] };
 
-    // Drop timestamps outside the current window.
+    // Drop timestamps outside the current 24-hour window.
     const window = (data.requests || []).filter(t => now - t < WINDOW_MS);
 
     if (window.length >= RATE_LIMIT) return false;
@@ -37,6 +38,44 @@ async function checkRateLimit(uid) {
   });
 }
 
+// ── User stats ──────────────────────────────────────────────────────────────
+// Fire-and-forget — never awaited so it never slows the chat response.
+// Writes to users/{uid}/stats/summary (Admin SDK bypasses security rules).
+function updateUserStats(uid) {
+  const db    = admin.firestore();
+  const ref   = db.collection('users').doc(uid)
+                  .collection('stats').doc('summary');
+  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD (UTC)
+  const ts    = admin.firestore.FieldValue.serverTimestamp;
+  const inc   = admin.firestore.FieldValue.increment;
+
+  ref.get().then(snap => {
+    if (!snap.exists) {
+      // Very first question from this user.
+      return ref.set({
+        totalQuestions:   1,
+        questionsToday:   1,
+        lastQuestionDate: today,
+        freeLimit:        RATE_LIMIT,
+        firstSeen:        ts(),
+        lastSeen:         ts(),
+      });
+    }
+
+    const data     = snap.data();
+    const isNewDay = data.lastQuestionDate !== today;
+
+    return ref.update({
+      totalQuestions:   inc(1),
+      questionsToday:   isNewDay ? 1 : inc(1),
+      lastQuestionDate: today,
+      freeLimit:        RATE_LIMIT,
+      lastSeen:         ts(),
+    });
+  }).catch(err => console.error('[stats] update failed:', err.message));
+}
+
+// ── Handler ─────────────────────────────────────────────────────────────────
 export default async function handler(req, res) {
   const origin = req.headers.origin;
   if (origin && ALLOWED_ORIGINS.includes(origin)) {
@@ -71,8 +110,13 @@ export default async function handler(req, res) {
     allowed = true;
   }
   if (!allowed) {
-    return res.status(429).json({ error: 'Rate limit exceeded. Please wait a minute.' });
+    return res.status(429).json({
+      error: 'You have used your 3 free questions for today. Come back tomorrow for 3 more — or unlock unlimited access with Premium.',
+    });
   }
+
+  // Update user stats in the background (fire-and-forget).
+  updateUserStats(uid);
 
   const { messages } = req.body;
   if (!messages || !Array.isArray(messages)) {
@@ -102,14 +146,14 @@ Guidelines:
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
+        'Content-Type':      'application/json',
+        'x-api-key':         apiKey,
+        'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model:      'claude-sonnet-4-20250514',
         max_tokens: 1024,
-        system: systemPrompt,
+        system:     systemPrompt,
         messages,
       }),
     });
@@ -118,7 +162,7 @@ Guidelines:
       const errorData = await response.json();
       console.error('Anthropic API error:', errorData);
       return res.status(response.status).json({
-        error: errorData.error?.message || 'Error from AI service'
+        error: errorData.error?.message || 'Error from AI service',
       });
     }
 
