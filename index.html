@@ -617,6 +617,8 @@
     display:flex; gap:30px; overflow-x:auto; scroll-snap-type:x mandatory;
     padding:24px 10vw 30px; -webkit-overflow-scrolling:touch; scrollbar-width:none;
     position:relative; z-index:2;
+    touch-action:pan-x; /* horizontal swipes only — vertical passes to the page */
+    overscroll-behavior-x:contain; /* stop horizontal swipe triggering browser back/forward */
   }
   .filmstrip::-webkit-scrollbar{ display:none; }
   .film-item{ scroll-snap-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; }
