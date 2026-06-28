@@ -24,7 +24,11 @@
     }
   } catch (e) {}
 
-  if (!premium) return;
+  // Website premium lock REMOVED — all scripture content is free for everyone
+  // on the web. Premium lives in the app only. We still read dc_premium above
+  // purely to decide whether to show the "Premium Active" banner to real
+  // subscribers (see the gated banner block at the bottom of this file).
+  // The unlock CSS + DOM pass below now run unconditionally for every visitor.
 
   /* ── CSS injection — unlocks all content types ── */
   var unlockCSS =
@@ -41,9 +45,7 @@
     'overflow:visible!important;user-select:auto!important;' +
     'pointer-events:auto!important;}' +
     /* Hide ALL paywall overlays AND paywall-wrap gradients */
-    '.paywall-overlay,.paywall-wrap{display:none!important;}' +
-    /* Hide btn-upgrade (nav.js shows premium badge already) */
-    'a.btn-upgrade{display:none!important;}';
+    '.paywall-overlay,.paywall-wrap{display:none!important;}';
 
   var styleEl = document.createElement('style');
   styleEl.id  = 'dc-premium-unlock-v4';
@@ -81,10 +83,13 @@
       el.style.setProperty('display', 'none', 'important');
     });
 
-    /* Hide btn-upgrade (duplicate premium badge issue) */
-    document.querySelectorAll('a.btn-upgrade').forEach(function (el) {
-      el.style.setProperty('display', 'none', 'important');
-    });
+    /* Hide the "Go Premium" button ONLY for users who already have premium.
+       Everyone else should see it — it drives to the fee-free web checkout. */
+    if (premium) {
+      document.querySelectorAll('a.btn-upgrade').forEach(function (el) {
+        el.style.setProperty('display', 'none', 'important');
+      });
+    }
 
     /* Fix Ramayana progress dots */
     document.querySelectorAll('.progress-k').forEach(function (dot) {
@@ -161,6 +166,7 @@
 
   /* ── Premium status banner ── */
   window.addEventListener('load', function () {
+    if (!premium) return; // banner only for real subscribers; web content is free for all
     if (sessionStorage.getItem('dc_unlock_v4')) return;
     sessionStorage.setItem('dc_unlock_v4', '1');
 

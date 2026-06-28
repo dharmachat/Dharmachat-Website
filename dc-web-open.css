@@ -1,0 +1,32 @@
+/* ============================================================================
+   dc-web-open.css — The DharmaChat website is fully open. Premium is app-only.
+
+   Loaded in <head> (before the body paints) so scripture content is never even
+   briefly blurred — no flash of locked content. It also hides the web "Go
+   Premium" upsell button everywhere. The companion dc-premium-unlock.js still
+   runs to rewrite locked nav links and progress dots (things CSS can't do).
+   ============================================================================ */
+
+/* Reveal every gated content block, regardless of scripture type */
+.chapter.locked-chapter .chapter-content,
+.chapter.locked-ch .chapter-content,
+.parva.locked-parva .parva-content,
+.kanda.locked-k .kanda-content,
+.upanishad.locked-up .up-content,
+.veda.locked-veda .veda-content,
+.purana.locked-purana .purana-content {
+  filter: none !important;
+  max-height: none !important;
+  overflow: visible !important;
+  user-select: auto !important;
+  pointer-events: auto !important;
+}
+
+/* Remove the paywall overlays/gradients that sat over locked content */
+.paywall-overlay,
+.paywall-wrap { display: none !important; }
+
+/* NOTE: the "Go Premium" button (a.btn-upgrade) is intentionally KEPT visible.
+   It drives visitors to the Razorpay web checkout, which has no App Store /
+   Play Store commission. dc-premium-unlock.js hides it only for users who are
+   already premium. */

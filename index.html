@@ -614,10 +614,10 @@
   .showcase-head h2{ font-family:'Cinzel Decorative',serif; font-size:clamp(26px,3.6vw,40px); color:var(--gold-lt); line-height:1.2; margin-bottom:14px; }
   .showcase-head p{ font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:rgba(255,255,255,.6); line-height:1.6; }
   .filmstrip{
-    display:flex; gap:30px; overflow-x:auto; scroll-snap-type:x mandatory;
+    display:flex; gap:30px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity;
     padding:24px 10vw 30px; -webkit-overflow-scrolling:touch; scrollbar-width:none;
     position:relative; z-index:2;
-    touch-action:pan-x; /* horizontal swipes only — vertical passes to the page */
+    touch-action:pan-x; /* horizontal swipes only — vertical passes to the page so the user can scroll past */
     overscroll-behavior-x:contain; /* stop horizontal swipe triggering browser back/forward */
   }
   .filmstrip::-webkit-scrollbar{ display:none; }
@@ -644,6 +644,7 @@
     .feat-row.reverse .feat-img .device{ transform:none !important; }
   }
 </style>
+  <link rel="stylesheet" href="dc-web-open.css?v=1">
 </head>
 <body>
 

@@ -144,6 +144,7 @@ footer p{font-family:'Cinzel',serif;font-size:11px;color:rgba(255,255,255,0.25);
 footer a{color:rgba(240,192,64,0.5);text-decoration:none;margin:0 10px}
 @media(max-width:600px){.up-header{flex-direction:column;gap:10px}.up-num{font-size:36px}.up-nav-grid{grid-template-columns:repeat(2,1fr)}.mahavakya-grid{grid-template-columns:1fr}nav .nav-right .nav-link{display:none}}
 </style>
+  <link rel="stylesheet" href="dc-web-open.css?v=1">
 </head>
 <body>
 <nav>
@@ -952,8 +953,7 @@ upas.forEach(function(u,i){var a=document.createElement('a');a.href=u.free?'#up-
 function setLang(lang,btn){document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');document.querySelectorAll('[data-lang]').forEach(function(el){el.style.display=el.getAttribute('data-lang')===lang?'':'none';});}
 </script>
 
-<script src="dc-premium-unlock.js?v=3"></script>
-<script src="dc-premium-unlock.js?v=4"></script>
+<script src="dc-premium-unlock.js?v=5"></script>
 <script type="module" src="nav.js"></script>
 <style>
 .dc-footer-inner{max-width:1100px;margin:0 auto}

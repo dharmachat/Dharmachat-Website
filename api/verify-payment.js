@@ -25,6 +25,15 @@
  *   FIREBASE_ADMIN_PRIVATE_KEY   (paste the FULL key including BEGIN/END
  *                                  lines; literal \n in the env value
  *                                  is auto-converted to real newlines)
+ *
+ *   SUPABASE_URL                 (recommended) When both are set, the verified
+ *   SUPABASE_SERVICE_ROLE_KEY    purchase is ALSO recorded in the Supabase
+ *                                `subscriptions` table (same pipeline the app
+ *                                uses), so the mobile app — which reads
+ *                                users.is_premium from Supabase — recognizes a
+ *                                web purchase under the same Google account.
+ *                                If unset, the web flow still works; only the
+ *                                app-side sync is skipped (logged, non-fatal).
  */
 import crypto from 'crypto';
 import admin from 'firebase-admin';
@@ -164,9 +173,89 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Could not record premium' });
   }
 
+  // 5. Mirror the purchase into Supabase so the mobile app recognizes it.
+  //    The app reads users.is_premium from Supabase; a DB trigger flips that
+  //    flag whenever the user has an active row in `subscriptions`. We write
+  //    that same row here (identical shape to the app's payments-verify edge
+  //    function), keyed by the Firebase UID, which is also the Supabase
+  //    users.id. Best-effort: a failure here must NEVER fail the payment —
+  //    Firestore already recorded it and this can be retried/back-filled.
+  try {
+    await syncPremiumToSupabase({
+      uid,
+      email: decoded.email || null,
+      plan,
+      paymentId: razorpay_payment_id,
+      orderId: razorpay_order_id,
+      startedAt: now.toISOString(),
+      periodEnd: expiry.toISOString(),
+    });
+  } catch (e) {
+    console.warn('[verify-payment] Supabase premium sync failed (non-fatal):', e?.message || e);
+  }
+
   return res.status(200).json({
     success: true,
     plan,
     expiry: expiry.toISOString(),
   });
+}
+
+// Record the verified purchase in Supabase so the mobile app sees it. Writes a
+// `subscriptions` row; the trg_subs_sync trigger then sets users.is_premium.
+// No-op (with a warning) when the Supabase env vars are not configured.
+async function syncPremiumToSupabase({ uid, email, plan, paymentId, orderId, startedAt, periodEnd }) {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    console.warn('[verify-payment] SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set — skipping app-side premium sync.');
+    return;
+  }
+  const base = url.replace(/\/$/, '');
+  const headers = {
+    apikey: key,
+    Authorization: `Bearer ${key}`,
+    'Content-Type': 'application/json',
+    Prefer: 'resolution=merge-duplicates,return=minimal',
+  };
+
+  // 1. Ensure the user row exists (it is the FK target for subscriptions, and
+  //    `email` is NOT NULL in the schema). The Firebase token carries the email
+  //    for Google / email-password sign-ins. We deliberately do NOT send
+  //    is_premium — the trigger owns that column.
+  if (email) {
+    const ru = await fetch(`${base}/rest/v1/users?on_conflict=id`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify([{ id: uid, email }]),
+    });
+    if (!ru.ok) {
+      const t = await ru.text().catch(() => '');
+      console.warn('[verify-payment] users upsert non-OK:', ru.status, t.slice(0, 200));
+    }
+  }
+
+  // 2. Upsert the subscription. Idempotent on (provider, external_id) so
+  //    re-verifying the same payment never duplicates. status:'active' makes
+  //    the trigger set users.is_premium = true; current_period_end carries the
+  //    same expiry the web records in Firestore.
+  const sub = {
+    user_id: uid,
+    provider: 'razorpay',
+    external_id: paymentId,
+    product_id: `premium_${plan}`,
+    status: 'active',
+    started_at: startedAt,
+    current_period_end: periodEnd,
+    raw_webhook: { source: 'web-verify-payment', order_id: orderId, payment_id: paymentId },
+  };
+  const rs = await fetch(`${base}/rest/v1/subscriptions?on_conflict=provider,external_id`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify([sub]),
+  });
+  if (!rs.ok) {
+    const t = await rs.text().catch(() => '');
+    throw new Error(`subscriptions upsert ${rs.status}: ${t.slice(0, 200)}`);
+  }
 }
