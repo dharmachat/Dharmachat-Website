@@ -1,6 +1,6 @@
 /**
  * dc-premium-unlock.js  v4.0
- * DharmaChat — Universal Premium Unlock
+ * DharmaChat: Universal Premium Unlock
  * Fixes: paywall-wrap + paywall-overlay both hidden, btn-upgrade hidden not renamed
  */
 (function () {
@@ -24,13 +24,13 @@
     }
   } catch (e) {}
 
-  // Website premium lock REMOVED — all scripture content is free for everyone
+  // Website premium lock REMOVED: all scripture content is free for everyone
   // on the web. Premium lives in the app only. We still read dc_premium above
   // purely to decide whether to show the "Premium Active" banner to real
   // subscribers (see the gated banner block at the bottom of this file).
   // The unlock CSS + DOM pass below now run unconditionally for every visitor.
 
-  /* ── CSS injection — unlocks all content types ── */
+  /* ── CSS injection: unlocks all content types ── */
   var unlockCSS =
     '.chapter.locked-chapter .chapter-content,' +
     '.chapter.locked-ch .chapter-content,' +
@@ -84,7 +84,7 @@
     });
 
     /* Hide the "Go Premium" button ONLY for users who already have premium.
-       Everyone else should see it — it drives to the fee-free web checkout. */
+       Everyone else should see it, since it drives to the fee-free web checkout. */
     if (premium) {
       document.querySelectorAll('a.btn-upgrade').forEach(function (el) {
         el.style.setProperty('display', 'none', 'important');
@@ -176,7 +176,7 @@
 
     var b = document.createElement('div');
     b.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(130%);z-index:99999;background:linear-gradient(135deg,#3E0000,#5A0A0A);border:1px solid rgba(212,160,23,0.5);border-radius:20px;padding:14px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 40px rgba(0,0,0,0.5);max-width:380px;width:calc(100% - 48px);transition:transform .5s cubic-bezier(0.34,1.56,0.64,1);';
-    b.innerHTML = '<div style="font-size:20px;flex-shrink:0;">👑</div><div style="flex:1;min-width:0;"><div style="font-family:Cinzel,serif;font-size:12px;color:#F0C040;font-weight:700;margin-bottom:2px;">Premium Active — ' + plan + ' Plan</div><div style="font-size:10px;color:rgba(255,255,255,0.55);">Full access · Valid until ' + dateStr + '</div></div><button id="dcUnlockX" style="background:rgba(255,255,255,0.1);border:none;border-radius:50%;width:22px;height:22px;color:rgba(255,255,255,0.7);font-size:14px;cursor:pointer;flex-shrink:0;">×</button>';
+    b.innerHTML = '<div style="font-size:20px;flex-shrink:0;">👑</div><div style="flex:1;min-width:0;"><div style="font-family:Cinzel,serif;font-size:12px;color:#F0C040;font-weight:700;margin-bottom:2px;">Premium Active · ' + plan + ' Plan</div><div style="font-size:10px;color:rgba(255,255,255,0.55);">Full access · Valid until ' + dateStr + '</div></div><button id="dcUnlockX" style="background:rgba(255,255,255,0.1);border:none;border-radius:50%;width:22px;height:22px;color:rgba(255,255,255,0.7);font-size:14px;cursor:pointer;flex-shrink:0;">×</button>';
     document.body.appendChild(b);
     setTimeout(function () { b.style.transform = 'translateX(-50%) translateY(0)'; }, 700);
 

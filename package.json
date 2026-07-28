@@ -2,7 +2,7 @@
   "name": "dharmachat-website",
   "version": "1.0.0",
   "private": true,
-  "description": "DharmaChat — Hindu scripture website + Vercel serverless API",
+  "description": "DharmaChat: Hindu scripture website + Vercel serverless API",
   "engines": {
     "node": ">=18"
   },

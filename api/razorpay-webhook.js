@@ -1,5 +1,5 @@
 /**
- * /api/razorpay-webhook — handles `payment.captured` events from Razorpay.
+ * /api/razorpay-webhook: handles `payment.captured` events from Razorpay.
  *
  * Catches the edge case where a user pays but closes the browser before the
  * success redirect lands, which means /api/verify-payment never fires and
@@ -11,7 +11,7 @@
  *   3. Extract the order_id from the event payload.
  *   4. Fetch the order from Razorpay to read notes.uid and notes.plan
  *      (stored there by /api/payment.js when the order was created).
- *   5. Idempotency check — skip if premium/status already records this paymentId.
+ *   5. Idempotency check: skip if premium/status already records this paymentId.
  *   6. Write users/{uid}/premium/status to Firestore via Admin SDK.
  *
  * Required env var (add in Vercel alongside the existing ones):
@@ -91,14 +91,14 @@ export default async function handler(req, res) {
   const plan = order.notes?.plan || 'monthly';
 
   if (!uid) {
-    // Order was created before this webhook flow was added — nothing to do.
+    // Order was created before this webhook flow was added, so there is nothing to do.
     return res.status(200).json({ received: true, skipped: 'no uid in notes' });
   }
   if (!PLAN_DURATIONS_MS[plan]) {
     return res.status(200).json({ received: true, skipped: 'unknown plan' });
   }
 
-  // 4. Idempotency — skip if this paymentId is already recorded.
+  // 4. Idempotency: skip if this paymentId is already recorded.
   const db      = admin.firestore();
   const docRef  = db.collection('users').doc(uid).collection('premium').doc('status');
   const existing = await docRef.get();

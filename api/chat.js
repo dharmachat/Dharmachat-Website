@@ -39,7 +39,7 @@ async function checkRateLimit(uid) {
 }
 
 // ── User stats ──────────────────────────────────────────────────────────────
-// Fire-and-forget — never awaited so it never slows the chat response.
+// Fire-and-forget: never awaited so it never slows the chat response.
 // Writes to users/{uid}/stats/summary (Admin SDK bypasses security rules).
 function updateUserStats(uid) {
   const db    = admin.firestore();
@@ -111,7 +111,7 @@ export default async function handler(req, res) {
   }
   if (!allowed) {
     return res.status(429).json({
-      error: 'You have used your 3 free questions for today. Come back tomorrow for 3 more — or unlock unlimited access with Premium.',
+      error: 'You have used your 3 free questions for today. Come back tomorrow for 3 more, or unlock unlimited access with Premium.',
     });
   }
 
@@ -138,7 +138,7 @@ Guidelines:
 5. For life guidance questions, connect the ancient wisdom to the person's modern situation with empathy.
 6. Never make up references. If you are uncertain of an exact verse, say so and provide the general teaching instead.
 7. Always respond in English unless the user writes in another language.
-8. Keep answers comprehensive but focused — usually 150 to 300 words. For complex philosophical questions, go deeper.
+8. Keep answers comprehensive but focused: usually 150 to 300 words. For complex philosophical questions, go deeper.
 9. End each response with a relevant, inspiring shloka or teaching that the person can carry with them.
 10. You ONLY answer questions related to Hindu dharma, scriptures, philosophy, mythology, spirituality, yoga, and related topics. For unrelated questions, gently redirect: "My purpose is to guide you through the wisdom of Sanatana Dharma. May I help you explore a question related to dharma, the scriptures, or Hindu philosophy?"`;
 

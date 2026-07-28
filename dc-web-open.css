@@ -1,8 +1,8 @@
 /* ============================================================================
-   dc-web-open.css — The DharmaChat website is fully open. Premium is app-only.
+   dc-web-open.css: The DharmaChat website is fully open. Premium is app-only.
 
    Loaded in <head> (before the body paints) so scripture content is never even
-   briefly blurred — no flash of locked content. It also hides the web "Go
+   briefly blurred, with no flash of locked content. It also hides the web "Go
    Premium" upsell button everywhere. The companion dc-premium-unlock.js still
    runs to rewrite locked nav links and progress dots (things CSS can't do).
    ============================================================================ */

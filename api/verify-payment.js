@@ -1,5 +1,5 @@
 /**
- * /api/verify-payment — server-trusted Razorpay payment verification.
+ * /api/verify-payment: server-trusted Razorpay payment verification.
  *
  * Replaces the previous client-side savePremium() flow which trusted
  * whatever the browser claimed. Now:
@@ -10,7 +10,7 @@
  *   3. We HMAC-verify the Razorpay signature when present (desktop popup).
  *   4. We ALSO call Razorpay's payment-fetch API to confirm the payment
  *      is actually `captured` and the order_id matches. This is what
- *      makes the mobile redirect path safe — Razorpay does not append
+ *      makes the mobile redirect path safe, since Razorpay does not append
  *      a signature on redirect, so the signature alone is not enough.
  *   5. We write `users/{uid}/premium/status` to Firestore via the
  *      Firebase Admin SDK. The matching firestore.rules disallow client
@@ -29,8 +29,8 @@
  *   SUPABASE_URL                 (recommended) When both are set, the verified
  *   SUPABASE_SERVICE_ROLE_KEY    purchase is ALSO recorded in the Supabase
  *                                `subscriptions` table (same pipeline the app
- *                                uses), so the mobile app — which reads
- *                                users.is_premium from Supabase — recognizes a
+ *                                uses), so the mobile app, which reads
+ *                                users.is_premium from Supabase, recognizes a
  *                                web purchase under the same Google account.
  *                                If unset, the web flow still works; only the
  *                                app-side sync is skipped (logged, non-fatal).
@@ -88,7 +88,7 @@ export default async function handler(req, res) {
   }
 
   // 1. Verify Firebase ID token. Whatever uid the token resolves to is
-  //    the only user we'll ever grant premium to in this request — the
+  //    the only user we'll ever grant premium to in this request, the
   //    browser cannot lie about who they are.
   let decoded;
   try {
@@ -121,7 +121,7 @@ export default async function handler(req, res) {
     }
   }
 
-  // 3. Authoritative check — ask Razorpay directly whether this payment
+  // 3. Authoritative check: ask Razorpay directly whether this payment
   //    actually exists, is captured/authorized, and belongs to the
   //    order_id the browser claims.
   const credentials = Buffer.from(`${keyId}:${keySecret}`).toString('base64');
@@ -178,7 +178,7 @@ export default async function handler(req, res) {
   //    flag whenever the user has an active row in `subscriptions`. We write
   //    that same row here (identical shape to the app's payments-verify edge
   //    function), keyed by the Firebase UID, which is also the Supabase
-  //    users.id. Best-effort: a failure here must NEVER fail the payment —
+  //    users.id. Best-effort: a failure here must NEVER fail the payment;
   //    Firestore already recorded it and this can be retried/back-filled.
   try {
     await syncPremiumToSupabase({
@@ -208,7 +208,7 @@ async function syncPremiumToSupabase({ uid, email, plan, paymentId, orderId, sta
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {
-    console.warn('[verify-payment] SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set — skipping app-side premium sync.');
+    console.warn('[verify-payment] SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set; skipping app-side premium sync.');
     return;
   }
   const base = url.replace(/\/$/, '');
@@ -222,7 +222,7 @@ async function syncPremiumToSupabase({ uid, email, plan, paymentId, orderId, sta
   // 1. Ensure the user row exists (it is the FK target for subscriptions, and
   //    `email` is NOT NULL in the schema). The Firebase token carries the email
   //    for Google / email-password sign-ins. We deliberately do NOT send
-  //    is_premium — the trigger owns that column.
+  //    is_premium; the trigger owns that column.
   if (email) {
     const ru = await fetch(`${base}/rest/v1/users?on_conflict=id`, {
       method: 'POST',

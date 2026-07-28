@@ -1,4 +1,4 @@
-/* DharmaChat Service Worker — v1.0 */
+/* DharmaChat Service Worker v1.0 */
 
 const CACHE_NAME = 'dharmachat-v1';
 const OFFLINE_URL = '/index.html';
@@ -54,7 +54,7 @@ self.addEventListener('fetch', event => {
   /* Skip non-http requests (chrome-extension etc.) */
   if (!event.request.url.startsWith('http')) return;
 
-  /* Skip Vercel API calls — always go to network */
+  /* Skip Vercel API calls: always go to network */
   if (event.request.url.includes('vercel.app/api')) return;
 
   /* Skip Firebase / Google auth calls */
@@ -79,7 +79,7 @@ self.addEventListener('fetch', event => {
         return cachedResponse; /* Return cached immediately */
       }
 
-      /* Not in cache — fetch from network and cache for next time */
+      /* Not in cache: fetch from network and cache for next time */
       return fetch(event.request).then(response => {
         if (!response || response.status !== 200 || response.type === 'opaque') {
           return response;
@@ -99,7 +99,7 @@ self.addEventListener('fetch', event => {
 
         return response;
       }).catch(() => {
-        /* Network failed and nothing in cache — show offline page for HTML requests */
+        /* Network failed and nothing in cache: show offline page for HTML requests */
         if (event.request.headers.get('accept').includes('text/html')) {
           return caches.match(OFFLINE_URL);
         }

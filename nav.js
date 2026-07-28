@@ -102,7 +102,7 @@ function readPremium() {
 // matching firestore.rules deny client writes to users/{uid}/premium,
 // so the only way a doc can be there is if /api/verify-payment wrote
 // it after a Razorpay-verified purchase. This function makes sure
-// localStorage cannot drift from Firestore — if Firestore says no
+// localStorage cannot drift from Firestore: if Firestore says no
 // premium (or expired), we wipe the local copy. This is what defeats
 // the "set localStorage from devtools" bypass on any signed-in device.
 async function syncPremiumFromFirestore(user) {
