@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "in.dharmachat.app",
+      "sha256_cert_fingerprints": [
+        "B2:B8:51:2C:B0:FE:20:B8:6B:61:D8:9F:6A:97:63:BD:2B:3F:53:5B:4B:B6:D1:48:D6:BC:B0:57:35:8F:14:E6"
+      ]
+    }
+  }
+]
