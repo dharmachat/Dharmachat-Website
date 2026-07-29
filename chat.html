@@ -1,560 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Analytics -->
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZTPFCMN2K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-3ZTPFCMN2K');
+  gtag('config', 'G-3ZTPFCMN2K', { 'anonymize_ip': true });
 </script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>DharmaChat: AI Dharma Guide</title>
-<meta name="description" content="Ask any question about dharma, karma, moksha, or life and get answers from the Bhagavad Gita, Ramayana, Mahabharata & Upanishads. 3 free questions daily."/>
-
-<!-- SEO: Canonical -->
+<title>DharmaAI is moving to the app | DharmaChat</title>
+<meta name="description" content="DharmaAI, our guide to the Bhagavad Gita, Ramayana, Mahabharata and Upanishads, is becoming exclusive to the DharmaChat mobile app. Leave your email and we will tell you the day it launches."/>
 <link rel="canonical" href="https://dharmachat.in/chat.html"/>
-
-<!-- SEO: Open Graph -->
-<meta property="og:type" content="article"/>
+<meta property="og:type" content="website"/>
 <meta property="og:url" content="https://dharmachat.in/chat.html"/>
-<meta property="og:title" content="DharmaChat: AI Dharma Guide"/>
-<meta property="og:description" content="Ask any question about dharma, karma, moksha, or life and get answers from the Bhagavad Gita, Ramayana, Mahabharata & Upanishads. 3 free questions daily."/>
+<meta property="og:title" content="DharmaAI is moving to the app | DharmaChat"/>
+<meta property="og:description" content="DharmaAI is becoming exclusive to the DharmaChat mobile app. Be the first to know when it launches."/>
 <meta property="og:image" content="https://dharmachat.in/logo.jpeg"/>
 <meta property="og:site_name" content="DharmaChat"/>
 <meta property="og:locale" content="en_IN"/>
-
-<!-- SEO: Twitter Card -->
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="DharmaChat: AI Dharma Guide"/>
-<meta name="twitter:description" content="Ask any question about dharma, karma, moksha, or life and get answers from the Bhagavad Gita, Ramayana, Mahabharata & Upanishads. 3 free questions daily."/>
-<meta name="twitter:image" content="https://dharmachat.in/logo.jpeg"/>
-
-<!-- SEO: Additional -->
 <meta name="robots" content="index, follow"/>
-<meta name="author" content="DharmaChat"/>
-<meta name="keywords" content="ai dharma guide, ask krishna, bhagavad gita chat, hindu ai, dharma questions, scripture ai"/>
-
-<!-- SEO: Schema.org -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "headline": "DharmaChat. AI Dharma Guide",
-  "description": "Ask any question about dharma, karma, moksha, or life and get answers from the Bhagavad Gita, Ramayana, Mahabharata & Upanishads. 3 free questions daily.",
-  "url": "https://dharmachat.in/chat.html",
-  "datePublished": "2026-03-26",
-  "dateModified": "2026-03-26",
-  "author": { "@type": "Organization", "name": "DharmaChat", "url": "https://dharmachat.in" },
-  "publisher": { "@type": "Organization", "name": "DharmaChat", "logo": { "@type": "ImageObject", "url": "https://dharmachat.in/logo.jpeg" } },
-  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://dharmachat.in/chat.html" },
-  "image": "https://dharmachat.in/logo.jpeg",
-  "inLanguage": "en"
-}
-</script>
 <link rel="icon" type="image/jpeg" href="favicon.jpeg"/>
+<link rel="shortcut icon" type="image/jpeg" href="favicon.jpeg"/>
 <link rel="apple-touch-icon" href="logo.jpeg"/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<meta name="theme-color" content="#3E0000"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
 <style>
-  :root{--saffron:#E8611A;--saffron-lt:#F5832A;--gold:#D4A017;--gold-lt:#F0C040;--maroon:#6B1A1A;--maroon-dk:#3E0000;--white:#FFFFFF}
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;overflow:hidden}
-  body{font-family:'Noto Sans',sans-serif;background:var(--maroon-dk);color:var(--white);display:flex;flex-direction:column;height:100vh}
+  :root {
+    --saffron:#E8611A; --saffron-lt:#F5832A;
+    --gold:#D4A017; --gold-lt:#F0C040;
+    --maroon:#6B1A1A; --maroon-dk:#3E0000;
+    --cream:#FDF6E3; --cream-dk:#F5EDD0;
+    --text-dark:#1E0A00; --text-mid:#5A3010; --text-light:#9A6835;
+    --white:#FFFFFF; --shadow:0 8px 40px rgba(107,26,26,0.18); --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans',sans-serif;background:var(--cream);color:var(--text-dark);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  a{color:var(--saffron);}
 
-  /* WELCOME BANNER */
-  .welcome-banner{position:fixed;inset:0;background:linear-gradient(160deg,var(--maroon-dk),#5A0A0A);display:flex;align-items:center;justify-content:center;z-index:300;}
-  .welcome-banner-box{text-align:center;animation:banner-in 0.5s ease;}
-  @keyframes banner-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-  .welcome-banner-box img{width:110px;height:110px;border-radius:50%;object-fit:cover;box-shadow:0 0 40px rgba(212,160,23,0.5),0 0 80px rgba(232,97,26,0.2);margin-bottom:24px;}
-  .welcome-banner-box h2{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,4vw,28px);color:var(--gold-lt);margin-bottom:10px;}
-  .welcome-banner-box p{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:rgba(255,255,255,0.6);}
+  nav{background:var(--maroon-dk);position:sticky;top:0;z-index:50;}
+  .nav-inner{max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .nav-logo img{width:34px;height:34px;border-radius:50%;object-fit:cover;}
+  .nav-logo span{font-family:'Cinzel',serif;font-weight:700;color:var(--gold-lt);font-size:1.05rem;letter-spacing:.5px;}
+  .nav-links{list-style:none;display:flex;gap:22px;}
+  .nav-links a{color:rgba(253,246,227,.82);text-decoration:none;font-size:.92rem;font-weight:500;}
+  .nav-links a:hover{color:var(--gold-lt);}
 
-  /* LOGIN */
-  .login-screen{position:fixed;inset:0;background:linear-gradient(160deg,var(--maroon-dk) 0%,#5A0A0A 100%);display:flex;align-items:center;justify-content:center;z-index:100}
-  .login-screen.hidden{display:none}
-  .login-box{background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.25);border-radius:24px;padding:48px 40px;max-width:420px;width:90%;text-align:center;backdrop-filter:blur(12px)}
-  .login-title{font-family:'Cinzel Decorative',serif;font-size:22px;color:var(--gold-lt);margin-bottom:8px}
-  .login-sub{font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,0.55);margin-bottom:24px;line-height:1.6}
-  .free-badge{display:inline-block;background:rgba(212,160,23,0.15);border:1px solid rgba(212,160,23,0.3);border-radius:20px;padding:4px 14px;font-family:'Cinzel',serif;font-size:11px;color:var(--gold-lt);letter-spacing:.08em;margin-bottom:28px}
-  .google-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:15px 24px;background:white;border:none;border-radius:50px;font-size:15px;font-weight:500;color:#333;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,0.3);font-family:'Noto Sans',sans-serif;margin-bottom:8px}
-  .google-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,0,0,0.4)}
-  .google-btn:disabled{opacity:.6;cursor:wait;transform:none}
-  .google-btn svg{width:20px;height:20px;flex-shrink:0}
-  .divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:rgba(255,255,255,0.3);font-size:12px}
-  .divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.15)}
-  .name-input{width:100%;padding:13px 18px;background:rgba(255,255,255,0.08);border:1px solid rgba(212,160,23,0.25);border-radius:12px;font-size:14px;color:white;font-family:'Noto Sans',sans-serif;outline:none;margin-bottom:10px;transition:border-color .2s}
-  .name-input::placeholder{color:rgba(255,255,255,0.3)}
-  .name-input:focus{border-color:rgba(212,160,23,0.6)}
-  .guest-btn{width:100%;padding:13px;background:transparent;border:1px solid rgba(212,160,23,0.3);border-radius:50px;font-family:'Cinzel',serif;font-size:13px;color:var(--gold-lt);cursor:pointer;transition:all .2s;letter-spacing:.04em}
-  .guest-btn:hover{background:rgba(212,160,23,0.1)}
-  .status-msg{font-size:12px;color:rgba(240,192,64,0.7);margin-top:12px;min-height:18px;font-family:'Cinzel',serif;letter-spacing:.04em}
-  .login-terms{margin-top:16px;font-size:11px;color:rgba(255,255,255,0.25);line-height:1.6}
+  .hero{background:linear-gradient(160deg,var(--maroon-dk),var(--maroon));color:var(--cream);padding:72px 24px 80px;text-align:center;}
+  .om{font-family:'Cinzel',serif;font-size:2.6rem;color:var(--gold-lt);line-height:1;margin-bottom:14px;}
+  .eyebrow{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px;}
+  .hero h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.9rem,5vw,2.9rem);color:var(--gold-lt);line-height:1.2;margin-bottom:18px;}
+  .hero p{font-family:'EB Garamond',serif;font-size:1.14rem;max-width:620px;margin:0 auto;color:rgba(253,246,227,.86);}
 
-  /* TOPBAR */
-  .topbar{background:rgba(62,0,0,0.97);border-bottom:1px solid rgba(212,160,23,0.25);padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-  .logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
-  .logo-name{font-family:'Cinzel Decorative',serif;font-size:17px;color:var(--gold-lt)}
-  .topbar-right{display:flex;align-items:center;gap:12px}
-  .user-info{display:flex;align-items:center;gap:8px}
-  .user-avatar{width:32px;height:32px;border-radius:50%;border:2px solid rgba(212,160,23,0.4);object-fit:cover}
-  .user-avatar-placeholder{width:32px;height:32px;border-radius:50%;background:rgba(212,160,23,0.2);border:1px solid rgba(212,160,23,0.3);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:13px;color:var(--gold-lt)}
-  .user-name{font-size:13px;color:rgba(255,255,255,0.7);font-family:'Cinzel',serif;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .questions-left{font-size:11px;color:var(--gold-lt);background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.2);border-radius:20px;padding:3px 10px;font-family:'Cinzel',serif}
-  .signout-btn{font-family:'Cinzel',serif;font-size:11px;color:rgba(240,192,64,0.5);background:none;border:none;cursor:pointer}
-  .signout-btn:hover{color:var(--gold-lt)}
-  .back-btn{font-family:'Cinzel',serif;font-size:11px;color:rgba(240,192,64,0.7);text-decoration:none}
+  .wrap{max-width:760px;margin:-44px auto 0;padding:0 24px 64px;}
+  .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:38px 32px;}
+  .card h2{font-family:'Cinzel',serif;font-size:1.34rem;color:var(--maroon);margin-bottom:14px;}
+  .card p{margin-bottom:16px;color:var(--text-mid);}
+  .card p strong{color:var(--text-dark);}
 
-  /* LIMIT BANNER */
-  .limit-banner{background:linear-gradient(135deg,rgba(232,97,26,0.15),rgba(212,160,23,0.1));border-bottom:1px solid rgba(212,160,23,0.2);padding:10px 20px;text-align:center;font-size:13px;color:var(--gold-lt);font-family:'EB Garamond',serif;font-style:italic;display:none}
-  .limit-banner.show{display:block}
-  .upgrade-link{color:var(--saffron-lt);font-style:normal;font-family:'Cinzel',serif;font-size:11px;margin-left:8px;cursor:pointer;border-bottom:1px solid var(--saffron-lt)}
+  .points{list-style:none;margin:22px 0 6px;}
+  .points li{position:relative;padding-left:30px;margin-bottom:13px;color:var(--text-mid);}
+  .points li::before{content:"\0950";position:absolute;left:0;top:0;color:var(--gold);font-family:'Cinzel',serif;font-size:1rem;}
 
-  /* CHAT */
-  .chat-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden}
-  .messages{flex:1;overflow-y:auto;padding:24px 20px;display:flex;flex-direction:column;gap:16px;scroll-behavior:smooth}
-  .messages::-webkit-scrollbar{width:4px}
-  .messages::-webkit-scrollbar-thumb{background:rgba(212,160,23,0.3);border-radius:2px}
-  .welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:40px 20px;text-align:center;gap:16px;animation:fade-in .6s ease}
-  @keyframes fade-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-  .welcome h1{font-family:'Cinzel Decorative',serif;font-size:clamp(18px,4vw,26px);color:var(--gold-lt);line-height:1.3}
-  .welcome-greeting{font-family:'EB Garamond',serif;font-style:italic;font-size:17px;color:rgba(255,255,255,0.7)}
-  .welcome p{font-family:'EB Garamond',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,0.55);max-width:480px;line-height:1.7}
-  .suggestion-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;max-width:640px;width:100%;margin-top:8px}
-  .suggestion{background:rgba(212,160,23,0.08);border:1px solid rgba(212,160,23,0.2);border-radius:12px;padding:12px 16px;font-size:13px;color:rgba(255,255,255,0.75);cursor:pointer;transition:all .2s;text-align:left;font-family:'EB Garamond',serif;font-style:italic;line-height:1.4}
-  .suggestion:hover{background:rgba(212,160,23,0.16);border-color:rgba(212,160,23,0.45);color:var(--gold-lt);transform:translateY(-2px)}
-  .msg{display:flex;gap:10px;animation:msg-in .35s ease;max-width:820px;margin:0 auto;width:100%}
-  @keyframes msg-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  .msg.user{flex-direction:row-reverse}
-  .msg-avatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;overflow:hidden}
-  .bubble{padding:13px 17px;border-radius:16px;font-size:14.5px;line-height:1.75;max-width:78%}
-  .msg.ai .bubble{background:rgba(255,255,255,0.06);border:1px solid rgba(212,160,23,0.18);color:rgba(255,255,255,0.9);border-radius:4px 16px 16px 16px;font-family:'EB Garamond',serif;font-size:16px}
-  .msg.user .bubble{background:linear-gradient(135deg,var(--saffron),#C45A15);color:white;border-radius:16px 4px 16px 16px;font-size:14px}
-  .typing-indicator{display:flex;gap:10px;max-width:820px;margin:0 auto;width:100%;animation:msg-in .3s ease}
-  .typing-bubble{background:rgba(255,255,255,0.06);border:1px solid rgba(212,160,23,0.18);border-radius:4px 16px 16px 16px;padding:14px 18px;display:flex;align-items:center;gap:5px}
-  .typing-dot{width:7px;height:7px;border-radius:50%;background:rgba(240,192,64,0.6);animation:bounce 1.2s ease-in-out infinite}
-  .typing-dot:nth-child(2){animation-delay:.2s}
-  .typing-dot:nth-child(3){animation-delay:.4s}
-  @keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-7px);opacity:1}}
+  .notify{margin-top:30px;padding-top:26px;border-top:1px solid var(--cream-dk);}
+  .notify h3{font-family:'Cinzel',serif;font-size:1.08rem;color:var(--maroon);margin-bottom:8px;}
+  .notify p{font-size:.94rem;margin-bottom:16px;}
+  .form-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .form-row input{flex:1 1 240px;min-width:0;padding:13px 16px;border:1px solid rgba(154,104,53,.32);border-radius:50px;font-family:'Noto Sans',sans-serif;font-size:.95rem;color:var(--text-dark);background:var(--cream);outline:none;}
+  .form-row input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,160,23,.18);}
+  .form-row button{padding:13px 26px;border:none;border-radius:50px;background:var(--saffron);color:#fff;font-family:'Noto Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .15s,box-shadow .15s;}
+  .form-row button:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(232,97,26,.34);}
+  .form-row button:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none;}
+  .form-msg{font-size:.92rem;margin-top:12px;min-height:20px;font-weight:600;}
+  .form-note{font-size:.82rem;color:var(--text-light);margin-top:8px;font-weight:400;}
 
-  /* INPUT */
-  .input-area{flex-shrink:0;padding:16px 20px 20px;background:rgba(30,0,0,0.8);border-top:1px solid rgba(212,160,23,0.15)}
-  .input-wrap{max-width:820px;margin:0 auto;display:flex;gap:10px;align-items:flex-end}
-  .input-box{flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(212,160,23,0.25);border-radius:14px;padding:13px 18px;font-family:'Noto Sans',sans-serif;font-size:14px;color:rgba(255,255,255,0.9);outline:none;resize:none;min-height:50px;max-height:140px;line-height:1.5;transition:border-color .2s;overflow-y:auto}
-  .input-box::placeholder{color:rgba(255,255,255,0.3)}
-  .input-box:focus{border-color:rgba(212,160,23,0.5)}
-  .input-box:disabled{opacity:.5;cursor:not-allowed}
-  .send-btn{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--saffron),var(--gold));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;box-shadow:0 4px 16px rgba(232,97,26,0.4)}
-  .send-btn:hover{transform:translateY(-2px)}
-  .send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-  .send-btn svg{width:20px;height:20px;fill:white}
-  .input-hint{text-align:center;font-size:11px;color:rgba(255,255,255,0.2);margin-top:8px;font-family:'Cinzel',serif;letter-spacing:.04em}
-  .error-msg{background:rgba(232,97,26,0.1);border:1px solid rgba(232,97,26,0.3);border-radius:10px;padding:10px 14px;font-size:13px;color:rgba(245,131,42,0.9);text-align:center;max-width:820px;margin:0 auto;width:100%}
-  @media(max-width:600px){.topbar{padding:0 12px}.user-name{display:none}.messages{padding:16px 12px}.input-area{padding:12px}.bubble{max-width:88%}.login-box{padding:36px 24px}}
+  .explore{margin-top:34px;text-align:center;}
+  .explore p{font-size:.95rem;color:var(--text-mid);margin-bottom:14px;}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+  .chip{display:inline-block;padding:9px 18px;border-radius:50px;background:var(--cream);border:1px solid rgba(212,160,23,.34);color:var(--maroon);text-decoration:none;font-size:.9rem;font-weight:600;}
+  .chip:hover{background:var(--cream-dk);}
+
+  footer{background:var(--maroon-dk);color:rgba(253,246,227,.7);padding:36px 24px;text-align:center;font-size:13px;margin-top:20px;}
+  footer a{color:var(--gold-lt);margin:0 8px;}
+
+  @media(max-width:600px){
+    .hero{padding:56px 20px 66px;}
+    .card{padding:28px 22px;}
+    .nav-links{gap:14px;}
+  }
 </style>
 </head>
 <body>
 
-<!-- WELCOME BANNER (shown to returning logged-in users) -->
-<div class="welcome-banner" id="welcomeBanner" style="display:none;">
-  <div class="welcome-banner-box">
-    <img src="logo.jpeg" alt="DharmaChat" loading="lazy">
-    <h2 id="welcomeBannerName">Namaste! 🙏</h2>
-    <p id="welcomeBannerSub">Welcome back to DharmaChat</p>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="logo.jpeg" alt="DharmaChat"/>
+      <span>DharmaChat</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/articles.html">Articles</a></li>
+      <li><a href="/premium.html">Premium</a></li>
+      <li><a href="/about.html">About</a></li>
+    </ul>
   </div>
-</div>
+</nav>
 
-<!-- LOGIN SCREEN -->
-<div class="login-screen" id="loginScreen" style="display:none;">
-  <div class="login-box">
-    <img src="logo.jpeg" style="width:130px;height:130px;border-radius:50%;object-fit:cover;margin-bottom:16px;box-shadow:0 0 40px rgba(212,160,23,0.5),0 0 80px rgba(232,97,26,0.2);" alt="DharmaChat" loading="lazy">
-    <div class="login-title">DharmaChat</div>
-    <div class="login-sub">Your personal guide to the wisdom of Sanatana Dharma: Bhagavad Gita, Mahabharata, Ramayana and beyond.</div>
-    <div class="free-badge">✦ Free, 3 Questions Daily</div>
-    <button class="google-btn" id="googleBtn" onclick="signInWithGoogle()">
-      <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-      Continue with Google
-    </button>
-    <div style="font-family:'EB Garamond',serif;font-style:italic;font-size:12px;color:rgba(255,255,255,0.35);margin-top:8px;margin-bottom:16px;">New user? Your account is created automatically 🙏</div>
-    <div class="divider">or continue as guest</div>
-    <input class="name-input" id="nameInput" type="text" placeholder="Enter your name..." maxlength="40" onkeydown="if(event.key==='Enter')signInAsGuest()"/>
-    <button class="guest-btn" onclick="signInAsGuest()">Begin Your Dharmic Journey →</button>
-    <div class="status-msg" id="statusMsg"></div>
-    <div class="login-terms">No password needed · Free forever · Private & secure</div>
-  </div>
-</div>
+<header class="hero">
+  <div class="om">&#2384;</div>
+  <div class="eyebrow">DharmaAI</div>
+  <h1>Your dharma guide is moving to the app</h1>
+  <p>DharmaAI is becoming part of the DharmaChat mobile app, where it can sit alongside your daily sadhana, your shlokas and your practice. Leave your email and we will tell you the day it opens.</p>
+</header>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <a class="logo-wrap" href="index.html">
-    <img src="logo.jpeg" style="width:36px;height:36px;border-radius:50%;object-fit:cover;box-shadow:0 0 10px rgba(212,160,23,0.5);" alt="DharmaChat" loading="lazy">
-    <div class="logo-name">DharmaChat</div>
-  </a>
-  <div class="topbar-right">
-    <div class="user-info" id="userInfo" style="display:none">
-      <div id="avatarWrap"></div>
-      <span class="user-name" id="userName"></span>
-      <span class="questions-left" id="questionsLeft"></span>
-      <button class="signout-btn" onclick="signOutUser()">Sign out</button>
+<main class="wrap">
+  <div class="card">
+    <h2>What is changing</h2>
+    <p>DharmaAI answers real questions from scripture: what karma yoga means in an ordinary job, why Arjuna hesitated, what the Gita says about grief, anger or doubt. That guidance is now being built into the app rather than the website.</p>
+    <p><strong>Why:</strong> in the app, DharmaAI knows where you are in your practice. It can point you to the exact shloka you were reading, hold the thread of a conversation, and speak with you in English, Hindi or Kannada. A browser tab cannot do any of that.</p>
+
+    <ul class="points">
+      <li>173 shlokas with word by word meaning, translation and commentary</li>
+      <li>DharmaAI, rooted in the Gita, Ramayana, Mahabharata and Upanishads</li>
+      <li>Daily sadhana, karma points, streaks and a Hindu festival calendar</li>
+      <li>Dharma Sabha, a moderated prayer wall where seekers hold each other in prayer</li>
+    </ul>
+
+    <div class="notify">
+      <h3>Be told the day it launches</h3>
+      <p>One email, when the app is live. Nothing else.</p>
+      <div class="form-row">
+        <input type="email" id="appEmail" placeholder="you@example.com" aria-label="Your email address"/>
+        <button type="button" id="notifyBtn" onclick="notifyForApp()">Notify me</button>
+      </div>
+      <div class="form-msg" id="appNotifyMsg"></div>
+      <p class="form-note">We use your email only for this one announcement. Read our <a href="/privacy.html">privacy policy</a>.</p>
     </div>
-    <a class="back-btn" href="index.html">← Home</a>
-  </div>
-</div>
 
-<!-- LIMIT BANNER -->
-<div class="limit-banner" id="limitBanner">
-  You have used all 3 free questions today. Come back tomorrow or
-  <span class="upgrade-link" onclick="showUpgrade()">upgrade to Premium ↗</span>
-</div>
-
-<!-- CHAT -->
-<div class="chat-wrap" id="chatWrap" style="visibility:hidden;">
-  <div class="messages" id="messages">
-    <div class="welcome" id="welcome">
-      <img src="logo.jpeg" style="width:110px;height:110px;border-radius:50%;object-fit:cover;box-shadow:0 0 40px rgba(212,160,23,0.5),0 0 80px rgba(232,97,26,0.2);" alt="DharmaChat" loading="lazy">
-      <div class="welcome-greeting" id="welcomeGreeting"></div>
-      <h1>Ask anything about<br>Dharma & Hindu Scripture</h1>
-      <p>Trained on the Bhagavad Gita, Mahabharata, Ramayana, Upanishads, Vedas and Puranas. Every answer includes scriptural references.</p>
-      <div class="suggestion-grid">
-        <div class="suggestion" onclick="askSuggestion(this)">What does the Gita say about overcoming fear?</div>
-        <div class="suggestion" onclick="askSuggestion(this)">Who is Hanuman and what are his greatest qualities?</div>
-        <div class="suggestion" onclick="askSuggestion(this)">What is the meaning of Dharma in the Mahabharata?</div>
-        <div class="suggestion" onclick="askSuggestion(this)">How can I find peace of mind through Hindu philosophy?</div>
-        <div class="suggestion" onclick="askSuggestion(this)">What does the Ramayana teach about relationships?</div>
-        <div class="suggestion" onclick="askSuggestion(this)">Explain the concept of Karma and rebirth</div>
+    <div class="explore">
+      <p>In the meantime, everything else on the site is open and free to read.</p>
+      <div class="chips">
+        <a class="chip" href="/bhagavad-gita.html">Bhagavad Gita</a>
+        <a class="chip" href="/ramayana.html">Ramayana</a>
+        <a class="chip" href="/mahabharata.html">Mahabharata</a>
+        <a class="chip" href="/upanishads.html">Upanishads</a>
+        <a class="chip" href="/articles.html">Articles</a>
       </div>
     </div>
   </div>
-  <div class="input-area">
-    <div class="input-wrap">
-      <textarea class="input-box" id="userInput" placeholder="Ask about dharma, shlokas, Hindu epics, life guidance..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="send-btn" id="sendBtn" onclick="sendMessage()">
-        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-      </button>
-    </div>
-    <div class="input-hint">Answers grounded in authentic Hindu scriptures · Bhagavad Gita · Mahabharata · Ramayana · Upanishads</div>
-  </div>
-</div>
+</main>
 
+<footer>
+  <p>&copy; 2026 DharmaChat. Made with devotion in India.</p>
+  <p style="margin-top:8px;">
+    <a href="/">Home</a>&middot;
+    <a href="/about.html">About</a>&middot;
+    <a href="/contact.html">Contact</a>&middot;
+    <a href="/privacy.html">Privacy</a>&middot;
+    <a href="/terms.html">Terms</a>
+  </p>
+</footer>
+
+<script type="module" src="nav.js"></script>
+<!-- Notify Me: mirrors the homepage handler, and MUST load after nav.js so
+     Firebase is already initialised. Writes to the same `notify_me`
+     collection the launch banner uses, so every signup lands in one place. -->
 <script type="module">
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signInAnonymously, onAuthStateChanged, signOut as fbSignOut }
-    from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore, collection, addDoc, serverTimestamp }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDvw26WTzNRsBBgjXG9At60pN8ApDvPB7o",
-    authDomain: "dharmachat-cc71d.firebaseapp.com",
-    projectId: "dharmachat-cc71d",
-    storageBucket: "dharmachat-cc71d.firebasestorage.app",
-    messagingSenderId: "718284855701",
-    appId: "1:718284855701:web:d7ef64292cd48ffdf13e9c",
-    measurementId: "G-3ZTPFCMN2K"
-  };
+const _db = getFirestore(getApp());
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-  const FREE_LIMIT = 3;
-  const API_ENDPOINT = 'https://dharmachat-github-io.vercel.app/api/chat';
+window.notifyForApp = async function () {
+  var emailEl = document.getElementById('appEmail');
+  var msg     = document.getElementById('appNotifyMsg');
+  var email   = (emailEl.value || '').trim().toLowerCase();
 
-  let conversationHistory = [];
-  let isLoading = false;
-  let currentUser = null;
-  let questionsUsed = 0;
-  let isGoogleUser = false;
-  let isPremium = false;
-
-  // Check premium status from localStorage (set by premium.html on payment success)
-  function checkPremiumStatus() {
-    try {
-      const raw = localStorage.getItem('dc_premium');
-      if (!raw) return false;
-      const data = JSON.parse(raw);
-      if (!data || !data.expiry) return false;
-      if (new Date(data.expiry) <= new Date()) {
-        localStorage.removeItem('dc_premium');
-        return false;
-      }
-      return true;
-    } catch (e) { return false; }
-  }
-  isPremium = checkPremiumStatus();
-
-  // Check guest session on load
-  window.addEventListener('load', () => {
-    const guestName = localStorage.getItem('dc_guest');
-    if (guestName) {
-      showChatUI(guestName, null, false);
-      autoAskFromURL();
-    }
-  });
-
-  // Firebase auth state
-  onAuthStateChanged(auth, (user) => {
-    document.getElementById('loginScreen').style.display = user ? 'none' : 'flex';
-    if (user) {
-      currentUser = user;
-      if (user.isAnonymous) {
-        // Guest signed in anonymously. UI already shown by signInAsGuest or load listener.
-        // Just keep currentUser so sendMessage can call getIdToken().
-        return;
-      }
-      isGoogleUser = true;
-      localStorage.removeItem('dc_guest');
-      const firstName = user.displayName?.split(' ')[0] || 'Devotee';
-      const loginScreen = document.getElementById('loginScreen');
-      const banner = document.getElementById('welcomeBanner');
-      if (loginScreen && !loginScreen.classList.contains('hidden') && banner) {
-        banner.style.display = 'flex';
-        document.getElementById('welcomeBannerName').textContent = 'Namaste, ' + firstName + '!';
-        document.getElementById('welcomeBannerSub').textContent = 'Welcome back to DharmaChat';
-        setTimeout(function() {
-          banner.style.display = 'none';
-          document.getElementById('chatWrap').style.visibility = 'visible';
-          showChatUI(firstName, user.photoURL, true);
-          autoAskFromURL();
-        }, 2500);
-      } else {
-        showChatUI(firstName, user.photoURL, true);
-        autoAskFromURL();
-      }
-    }
-  });
-
-  // Google Sign In
-  window.signInWithGoogle = async function() {
-    const btn = document.getElementById('googleBtn');
-    const status = document.getElementById('statusMsg');
-    btn.disabled = true;
-    status.textContent = '';
-    try {
-      const result = await signInWithPopup(auth, provider);
-      if (result.user) {
-        status.textContent = 'Signed in! Loading...';
-      }
-    } catch (err) {
-      console.error('Sign in error code:', err.code);
-      btn.disabled = false;
-      if (err.code === 'auth/popup-blocked') {
-        status.textContent = 'Popup blocked! Please allow popups for this site.';
-      } else if (err.code === 'auth/popup-closed-by-user') {
-        status.textContent = 'Sign-in cancelled. Try again or use guest mode.';
-      } else if (err.code === 'auth/cancelled-popup-request') {
-        status.textContent = '';
-      } else {
-        status.textContent = 'Error: ' + err.code + '. Please try guest mode.';
-      }
-    }
-  };
-
-  // Guest Sign In
-  window.signInAsGuest = function() {
-    const input = document.getElementById('nameInput');
-    const name = input.value.trim();
-    if (!name) {
-      input.style.borderColor = 'rgba(232,97,26,0.8)';
-      input.placeholder = 'Please enter your name...';
-      input.focus();
-      return;
-    }
-    localStorage.setItem('dc_guest', name);
-    showChatUI(name, null, false);
-    autoAskFromURL();
-    // Sign in anonymously so the guest gets a real Firebase UID for rate limiting.
-    signInAnonymously(auth).catch(() => {/* non-critical, chat works without it */});
-  };
-
-  function showChatUI(name, photoURL, isGoogle) {
-    document.getElementById('chatWrap').style.visibility = 'visible';
-    currentUser = currentUser || { displayName: name, photoURL: photoURL };
-    document.getElementById('loginScreen').classList.add('hidden');
-    document.getElementById('userInfo').style.display = 'flex';
-    document.getElementById('userName').textContent = name;
-    document.getElementById('welcomeGreeting').textContent = 'Namaste, ' + name + ' 🙏';
-    const avatarWrap = document.getElementById('avatarWrap');
-    if (photoURL) {
-      avatarWrap.innerHTML = '<img class="user-avatar" src="' + photoURL + '" alt="" loading="lazy">';
-    } else {
-      avatarWrap.innerHTML = '<div class="user-avatar-placeholder">' + name.charAt(0).toUpperCase() + '</div>';
-    }
-    loadQuestionsUsed();
-    document.getElementById('userInput').focus();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.style.color = '#E8611A';
+    msg.textContent = 'Please enter a valid email address.';
+    return;
   }
 
-  function autoAskFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    const q = params.get('q');
-    if (q) {
-      setTimeout(function() {
-        const input = document.getElementById('userInput');
-        if (input && !input.disabled) {
-          input.value = decodeURIComponent(q.replace(/\+/g, ' '));
-          window.sendMessage();
-        }
-      }, 800);
+  var btn = document.getElementById('notifyBtn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Saving...'; }
+  msg.style.color = '#9A6835';
+  msg.textContent = 'Saving...';
+
+  try {
+    await addDoc(collection(_db, 'notify_me'), {
+      email:     email,
+      createdAt: serverTimestamp(),
+      source:    'chat_page_moved_to_app',
+      ua:        navigator.userAgent.slice(0, 200),
+    });
+    if (typeof gtag === 'function') {
+      gtag('event', 'notify_signup', { method: 'chat_page' });
     }
+    msg.style.color = '#2E8B57';
+    msg.textContent = 'You are on the list. We will write to you the day the app opens.';
+    emailEl.value = '';
+  } catch (err) {
+    console.error('notify_me write failed:', err.code, err.message);
+    msg.style.color = '#E8611A';
+    msg.textContent = 'Something went wrong. Please try again shortly.';
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Notify me'; }
   }
-
-  // Sign out
-  window.signOutUser = async function() {
-    await fbSignOut(auth).catch(() => {});
-    localStorage.removeItem('dc_guest');
-    localStorage.removeItem('dc_usage');
-    conversationHistory = [];
-    location.reload();
-  };
-
-  window.showUpgrade = function() {
-    window.location.href = 'premium.html';
-  };
-
-  function loadQuestionsUsed() {
-    if (isPremium) {
-      questionsUsed = 0; // Premium users always have unlimited questions
-      updateQuestionsDisplay();
-      return;
-    }
-    const today = new Date().toDateString();
-    const stored = JSON.parse(localStorage.getItem('dc_usage') || '{}');
-    if (stored.date !== today) {
-      questionsUsed = 0;
-      localStorage.setItem('dc_usage', JSON.stringify({ date: today, count: 0 }));
-    } else {
-      questionsUsed = stored.count || 0;
-    }
-    updateQuestionsDisplay();
-  }
-
-  function saveQuestionsUsed() {
-    if (isPremium) return; // Premium users, no counter
-    const today = new Date().toDateString();
-    questionsUsed++;
-    localStorage.setItem('dc_usage', JSON.stringify({ date: today, count: questionsUsed }));
-    updateQuestionsDisplay();
-  }
-
-  function updateQuestionsDisplay() {
-    if (isPremium) {
-      document.getElementById('questionsLeft').textContent = '👑 Premium: Unlimited';
-      document.getElementById('questionsLeft').style.background = 'rgba(29,158,117,0.15)';
-      document.getElementById('questionsLeft').style.borderColor = 'rgba(29,158,117,0.3)';
-      document.getElementById('questionsLeft').style.color = '#1D9E75';
-      return;
-    }
-    const remaining = Math.max(0, FREE_LIMIT - questionsUsed);
-    document.getElementById('questionsLeft').textContent = remaining + ' questions left today';
-    if (remaining === 0) {
-      document.getElementById('limitBanner').classList.add('show');
-      document.getElementById('userInput').disabled = true;
-      document.getElementById('sendBtn').disabled = true;
-    }
-  }
-
-  window.sendMessage = async function() {
-    if (!isPremium && questionsUsed >= FREE_LIMIT) { document.getElementById('limitBanner').classList.add('show'); return; }
-    const input = document.getElementById('userInput');
-    const text = input.value.trim();
-    if (!text || isLoading) return;
-    const welcome = document.getElementById('welcome');
-    if (welcome) welcome.remove();
-    const userName = document.getElementById('userName').textContent;
-    addMessage('user', text, currentUser?.photoURL, userName);
-    conversationHistory.push({ role: 'user', content: text });
-    input.value = '';
-    input.style.height = 'auto';
-    showTyping();
-    setLoading(true);
-    try {
-      const headers = { 'Content-Type': 'application/json' };
-      if (currentUser && typeof currentUser.getIdToken === 'function') {
-        try { headers['Authorization'] = 'Bearer ' + await currentUser.getIdToken(); } catch (_) {}
-      }
-      const response = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ messages: conversationHistory })
-      });
-      if (!response.ok) { const err = await response.json().catch(() => ({})); throw new Error(err.error || 'Something went wrong.'); }
-      const data = await response.json();
-      const aiText = data.content?.[0]?.text || 'I could not generate a response. Please try again.';
-      hideTyping();
-      addMessage('ai', aiText);
-      conversationHistory.push({ role: 'assistant', content: aiText });
-      saveQuestionsUsed();
-    } catch (err) {
-      hideTyping();
-      showError(err.message || 'Connection error. Please try again.');
-    }
-    setLoading(false);
-  };
-
-  window.askSuggestion = function(el) { document.getElementById('userInput').value = el.textContent; window.sendMessage(); };
-  window.handleKey = function(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); window.sendMessage(); } };
-  window.autoResize = function(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 140) + 'px'; };
-
-  function addMessage(role, text, photoURL, name) {
-    const msgs = document.getElementById('messages');
-    const div = document.createElement('div');
-    div.className = 'msg ' + role;
-    const avatar = document.createElement('div');
-    avatar.className = 'msg-avatar';
-    if (role === 'ai') {
-      avatar.textContent = 'ॐ';
-      avatar.style.cssText = 'background:linear-gradient(135deg,#6B1A1A,#E8611A);color:#F0C040;font-family:"EB Garamond",serif;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0';
-    } else if (photoURL) {
-      const img = document.createElement('img');
-      img.src = photoURL;
-      img.style.cssText = 'width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0';
-      avatar.appendChild(img);
-    } else {
-      avatar.style.cssText = 'background:rgba(212,160,23,0.2);border:1px solid rgba(212,160,23,0.3);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;font-family:"Cinzel",serif;color:#F0C040';
-      avatar.textContent = (name || 'U').charAt(0).toUpperCase();
-    }
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    if (role === 'ai') {
-      let f = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/\n\n/g,'</p><p style="margin-top:10px">').replace(/\n/g,'<br>');
-      bubble.innerHTML = '<p>' + f + '</p>';
-    } else { bubble.textContent = text; }
-    div.appendChild(avatar);
-    div.appendChild(bubble);
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-  }
-
-  function showTyping() {
-    const msgs = document.getElementById('messages');
-    const div = document.createElement('div');
-    div.className = 'typing-indicator';
-    div.id = 'typingIndicator';
-    const avatar = document.createElement('div');
-    avatar.style.cssText = 'background:linear-gradient(135deg,#6B1A1A,#E8611A);color:#F0C040;font-family:"EB Garamond",serif;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0';
-    avatar.textContent = 'ॐ';
-    const bubble = document.createElement('div');
-    bubble.className = 'typing-bubble';
-    for (let i = 0; i < 3; i++) { const dot = document.createElement('div'); dot.className = 'typing-dot'; bubble.appendChild(dot); }
-    div.appendChild(avatar);
-    div.appendChild(bubble);
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-  }
-
-  function hideTyping() { const t = document.getElementById('typingIndicator'); if (t) t.remove(); }
-  function showError(msg) {
-    const msgs = document.getElementById('messages');
-    const div = document.createElement('div');
-    div.className = 'error-msg';
-    div.textContent = 'Something went wrong. Please try again.';
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-    setTimeout(() => div.remove(), 6000);
-  }
-  function setLoading(state) {
-    isLoading = state;
-    document.getElementById('sendBtn').disabled = state;
-    document.getElementById('userInput').disabled = state ? true : (questionsUsed >= FREE_LIMIT);
-  }
+};
 </script>
+
 </body>
 </html>
