@@ -142,7 +142,7 @@
 <header class="legal-hero">
   <div class="eyebrow">Legal</div>
   <h1>Privacy Policy</h1>
-  <p class="meta"><strong>Last Updated:</strong> 27 April 2026 &nbsp;·&nbsp; <strong>Effective Date:</strong> 27 April 2026 &nbsp;·&nbsp; <strong>Version:</strong> 2.0</p>
+  <p class="meta"><strong>Last Updated:</strong> 30 July 2026 &nbsp;·&nbsp; <strong>Effective Date:</strong> 30 July 2026 &nbsp;·&nbsp; <strong>Version:</strong> 2.1</p>
 </header>
 
 <main class="legal-wrap">
@@ -150,7 +150,7 @@
 
     <div class="summary-box">
       <h3>The Short Version</h3>
-      <p>DharmaChat is built and operated by <strong>Sukhil Babu</strong>, a sole proprietor based in Bengaluru, Karnataka, India. We collect only what we need to run the app: your account info, your spiritual preferences, your conversations with DharmaAI, your community posts, and basic device/usage data. We do not sell your personal data to anyone, ever. Your religious preferences are <strong>sensitive personal data</strong> under GDPR and Indian law and are protected accordingly. You can export, correct, or permanently delete your data at any time from inside the app or by emailing <a href="mailto:privacy@dharmachat.in">privacy@dharmachat.in</a>.</p>
+      <p>DharmaChat is built and operated by <strong>Sukhil Babu</strong>, a sole proprietor based in Bengaluru, Karnataka, India. We collect only what we need to run the app: your account info, your spiritual preferences, your conversations with DharmaAI, your community posts, and basic device/usage data. We do not sell your personal data to anyone, ever. Your religious preferences are <strong>sensitive personal data</strong> under GDPR and Indian law and are protected accordingly. The app records crash and error diagnostics so we can fix what breaks, and those reports can never contain your prayers, your journal, or your DharmaAI conversations; you can switch diagnostics off in <em>Profile → Privacy &amp; safety</em>. You can export, correct, or permanently delete your data at any time from inside the app or by emailing <a href="mailto:privacy@dharmachat.in">privacy@dharmachat.in</a>.</p>
     </div>
 
     <details class="toc-collapse">
@@ -231,6 +231,7 @@
         <tr><td>Likes, bookmarks, and reactions</td><td>You</td><td>Personalisation and engagement counts</td></tr>
         <tr><td>Reports and blocks of other users</td><td>You</td><td>Moderation. We retain reports and block records to enforce community standards</td></tr>
         <tr><td>Conversations with DharmaAI</td><td>You</td><td>To provide the AI-guided scripture chat and let you revisit past sessions. <strong>Treat as private, but not end-to-end encrypted.</strong></td></tr>
+        <tr><td>Safety-guard records, including an excerpt of your message</td><td>Automatic, only when a message trips a safety guard</td><td>DharmaAI has guards that refuse certain requests, such as attempts to jailbreak it into speaking outside its purpose. When a guard trips, we store which guard it was, when, and up to the first 500 characters of the text that triggered it. On an input block that text is your own message. We keep this to see whether one account is repeatedly probing the model. These records are not visible to you in the app and are not part of a data export, because publishing what the guard catches is a map for getting around it. You can still ask for them, or for their deletion, at <a href="mailto:privacy@dharmachat.in">privacy@dharmachat.in</a>, and they are deleted with your account.</td></tr>
       </tbody>
     </table>
 
@@ -255,17 +256,62 @@
         <tr><td>Device model name (optional)</td><td>Detected via expo-device</td><td>To label tokens in your account so you can revoke a specific device</td></tr>
         <tr><td>IP address</td><td>HTTP requests</td><td>Security, fraud prevention, abuse mitigation. We do not log IP addresses for marketing</td></tr>
         <tr><td>Browser/app version, OS version</td><td>HTTP request headers</td><td>Compatibility and crash diagnosis</td></tr>
-        <tr><td>Crash and error reports (only if Sentry is enabled)</td><td>Automatic on crash</td><td>To find and fix bugs. Reports include stack traces, your Firebase UID, app state, and the device's OS/model. Reports do <em>not</em> include your password, payment details, or DharmaAI conversation contents.</td></tr>
+        <tr><td>Crash and error reports</td><td>Automatic when something goes wrong</td><td>To find and fix bugs. Set out in full in §3.6 below, including everything these reports can never contain and how to switch them off.</td></tr>
       </tbody>
     </table>
 
-    <h3>3.6 Payment Data</h3>
+    <h3>3.6 Crash &amp; Diagnostic Data</h3>
+    <p>When the app hits an error, it writes down what went wrong so we can fix it. Two separate recorders do this. They share no code, so a mistake in one cannot switch off the protections in the other.</p>
+    <ul>
+      <li><strong>Our own recorder.</strong> We built it, and it writes to a database we own and operate. Nobody else receives these reports. This is the one that does most of the work.</li>
+      <li><strong>Sentry.</strong> A third-party crash-reporting service based in the United States. It does two things ours cannot: it turns a compressed release stack trace back into a readable file name and line number, and it catches crashes in the native layer underneath JavaScript, which a JavaScript-only recorder simply cannot see. Sentry runs only in released builds of the app, never while we are developing it.</li>
+    </ul>
+
+    <p><strong>What a report contains:</strong></p>
+    <table class="data-table">
+      <thead><tr><th>What</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>The error itself: its name, its message, and the stack trace</td><td>The technical description of the failure and the path through our code that led to it. This is the part that actually lets us fix the bug</td></tr>
+        <tr><td>App and device information: app version, build number, release channel, platform, OS version and build, device brand, manufacturer and model, memory, free disk space, your chosen app language, and your device locale</td><td>Most bugs only happen on certain devices, certain OS versions, or certain app versions. Without this we would be guessing. We deliberately leave out the device's own name, because people routinely put their real first name in it</td></tr>
+        <tr><td>Your Firebase UID (when you are signed in), a session ID, and an install ID</td><td>The install ID is a random identifier we generate ourselves when the app is first installed. It is not your phone's advertising ID or hardware ID, and it is not used for advertising. It lets us tell "one device crashing fifty times" apart from "fifty people crashing once", which is the difference between a minor bug and an emergency</td></tr>
+        <tr><td>Which screen you were on, as a route template such as <code>/scripture/[id]</code></td><td>To reproduce the bug. We record the shape of the screen, never the specific page. We do this by reading the route pattern rather than the resolved address, so the title of the scripture, prayer, or conversation you were looking at is not in the report</td></tr>
+        <tr><td>A breadcrumb trail: the last 60 things that happened before the error</td><td>Described immediately below</td></tr>
+        <tr><td>Counters about the recorder's own health, such as how many reports it queued, dropped, or failed to upload</td><td>So we can tell a genuinely quiet app apart from a reporting system that has silently stopped working</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>The breadcrumb trail.</strong> A crash on its own is often unreproducible, so each report carries a short rolling record of what happened just before it. We keep the last 60 entries, and each one is a timestamp plus one of the following:</p>
+    <ul>
+      <li><strong>Screen changes:</strong> which screen you moved to, again as a route template. <strong>This records which screen you were on, never a single word of what you wrote on it.</strong></li>
+      <li><strong>Network calls:</strong> the method and the path, such as <code>POST /functions/v1/chat</code>, plus the status code and how long it took. The query string is stripped off, and the body of the request is never included.</li>
+      <li><strong>App lifecycle events:</strong> the app moving to the foreground or background, coming back online, signing in or out.</li>
+    </ul>
+
+    <p><strong>What crash reports can never contain.</strong> Both recorders strip sensitive text out on your device, before anything is sent, and each one does it with its own separate code so that neither depends on the other being correct. Our own recorder goes further and scrubs before it writes to disk rather than before it uploads, so nothing sensitive ever sits in a file on your phone waiting to be sent. Removed in every case:</p>
+    <ul>
+      <li>Prayer text from the Dharma Sabha wall.</li>
+      <li>Journal entries and the goals you are working to release. These never leave your phone in the first place; they are stored only on your device and are never sent to our servers at all.</li>
+      <li>DharmaAI conversation content, in either direction.</li>
+      <li>Passwords, sign-in tokens, API keys, and push tokens.</li>
+      <li>Payment details of every kind. We never hold your card, UPI, or bank details anywhere, and payment error responses are deliberately excluded from diagnostics entirely because they carry order and payment identifiers.</li>
+      <li>Email addresses, phone numbers, and anything shaped like a card number.</li>
+      <li>Ordinary prose. Any run of words that reads like a sentence a person wrote is replaced with a marker, in Latin script and in Indic scripts alike. The strongest signal is a personal pronoun: people write about themselves and the people they love, and error messages do not, so a sentence containing <em>I</em>, <em>me</em>, <em>my</em>, <em>she</em>, <em>he</em> or <em>they</em> is removed however short it is. Longer runs of everyday words are removed even without one. The app ships with an automated test that checks exactly this against sample prayer, journal, and chat text in <strong>English, Hindi, Kannada, Tamil, and Bengali</strong>, so that this protection cannot quietly regress.</li>
+    </ul>
+    <p>We would rather lose a readable error message than keep a sentence you wrote, so the filter is deliberately aggressive and errs towards removing too much. It is a strong filter, not a mathematical guarantee. To be specific about where the edge is: a short phrase written in the third person, with no personal pronoun and no everyday words beyond a handful, could in principle survive. We are telling you where the limit is rather than claiming perfection.</p>
+
+    <p><strong>We do not send the contents of the app's internal state.</strong> An earlier version of this Policy said crash reports included "app state", which overstated what we collect. They do not carry a snapshot of what the app was holding in memory, and they do not carry the body of the request that failed. The only state in a report is the coarse kind: whether the app was in the foreground or the background, how long it had been running, and whether the device was online.</p>
+    <p>Sentry is configured with performance tracing off, screenshots off, and view-hierarchy capture off. Screenshots in particular would photograph whatever prayer or journal entry happened to be on screen at the moment of the crash, which is why they are disabled. The only thing we knowingly attach to a Sentry report about a person is the Firebase UID; every other user field the Sentry software might add is stripped before the report leaves your device.</p>
+
+    <p><strong>Turning diagnostics off.</strong> You can switch this collection off in the app under <em>Profile → Privacy &amp; safety</em>. Turning it off stops <strong>both</strong> recorders at once: nothing further is recorded, the breadcrumb trail stops and is discarded, and the reports DharmaChat is still holding on your device are deleted rather than uploaded. Your choice is remembered, and both recorders read it before they start, so it applies from the first moment of the next launch rather than from whenever you next open a settings screen. One honest detail: Sentry's own software keeps a small outbound queue of its own, and switching off tells it to finish and shut down rather than reaching into that queue, so a report it had already accepted may still be delivered. Leaving diagnostics on genuinely helps, because a bug we cannot see is a bug we cannot fix, but it is your call and the app works exactly the same either way.</p>
+
+    <h3>3.7 Payment Data</h3>
     <p>If you purchase a premium subscription, the actual payment instrument (card number, UPI ID, bank details, Apple/Google account) is collected and processed entirely by our payment processors<strong>Razorpay</strong> (for India web and Android) and the relevant <strong>App Store</strong> via <strong>RevenueCat</strong> (for iOS in-app purchases). <strong>We never see, store, or transmit your full card or banking details.</strong> What we do receive and store is the order ID, payment ID, transaction status, the plan you bought, the amount, the currency, and timestamps. This is the minimum we need to recognise an active subscription, handle refunds, and provide tax-compliant invoices.</p>
 
-    <h3>3.7 What We Do <em>Not</em> Collect</h3>
+    <h3>3.8 What We Do <em>Not</em> Collect</h3>
     <ul>
       <li>We do not access your contacts, calendar, photos, microphone, camera, or precise location. The app does not request these permissions.</li>
       <li>We do not use behavioural advertising tracking. We do not embed Meta Pixel, Google Ads, TikTok Pixel, or any third-party advertising SDK.</li>
+      <li>The mobile app contains no analytics software. There is no Firebase Analytics, Amplitude, Mixpanel, PostHog, or Segment in it. The only thing the app reports automatically is the crash and error diagnostics described in §3.6. The dharmachat.in website is a separate matter and does use Google Analytics, which is covered in §15.</li>
       <li>We do not perform facial recognition or biometric processing of any kind.</li>
       <li>We do not buy data about you from data brokers.</li>
     </ul>
@@ -327,13 +373,13 @@
       </div>
       <div class="third-party">
         <h4>Supabase</h4>
-        <p>Stores your profile, community posts, chat history, and most other application data in our Postgres database.</p>
+        <p>Stores your profile, community posts, chat history, and most other application data in our Postgres database. Our own crash and error recorder writes to a Supabase project we own, so those reports go to us and to no other company.</p>
         <span class="country">🇮🇳 Mumbai, India region (data residency)</span><br/>
         <a href="https://supabase.com/privacy" target="_blank" rel="noopener">privacy policy</a>
       </div>
       <div class="third-party">
         <h4>Anthropic (Claude API)</h4>
-        <p>Generates DharmaAI's replies. We send the chat message and your spiritual profile context (deity, level, language)<em>not</em> your email or name. Anthropic does not train models on our API traffic by default.</p>
+        <p>Generates DharmaAI's replies. On every message we send the recent turns of that conversation along with your spiritual profile, so the reply is addressed to you rather than to a stranger. That profile includes <strong>your display name</strong>, your deity, level, language, goals, interests, and the onboarding answers about your practice and how you tend to feel. We do <em>not</em> send your email address, your password, or any payment information. Anthropic does not train models on our API traffic by default.</p>
         <span class="country">🇺🇸 United States</span><br/>
         <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">privacy policy</a>
       </div>
@@ -362,8 +408,8 @@
         <a href="https://expo.dev/privacy" target="_blank" rel="noopener">privacy policy</a>
       </div>
       <div class="third-party">
-        <h4>Sentry (when enabled)</h4>
-        <p>Receives crash reports and error stack traces to help us diagnose bugs. We scrub passwords and payment details from reports before they leave your device.</p>
+        <h4>Sentry</h4>
+        <p>The second of our two crash recorders (see §3.6). Receives scrubbed error messages, stack traces, your Firebase UID, the app and device details, and a filtered breadcrumb trail. Everything is scrubbed on your device before it is sent. Console output is dropped entirely and query strings are stripped from network breadcrumbs.</p>
         <span class="country">🇺🇸 United States</span><br/>
         <a href="https://sentry.io/privacy/" target="_blank" rel="noopener">privacy policy</a>
       </div>
@@ -402,7 +448,10 @@
         <tr><td>Anonymised aggregate analytics</td><td>Indefinitely. These cannot be linked back to you</td></tr>
         <tr><td>Tax and payment records</td><td>Eight (8) years from the financial year-end, as required by Indian Income Tax Act and GST law</td></tr>
         <tr><td>Abuse / moderation records (post reports, blocks, takedown logs)</td><td>Up to 24 months after the report</td></tr>
-        <tr><td>Crash and security logs</td><td>30 days, then deleted unless under active investigation</td></tr>
+        <tr><td>Crash and error reports in our own recorder (§3.6)</td><td>90 days from the day we receive them, then deleted automatically. A report we have already investigated and closed is deleted 14 days after that, without waiting for the 90 days</td></tr>
+        <tr><td>Crash reports held by Sentry</td><td>Governed by Sentry's own retention settings for our account rather than by a deletion request from the app. Contact us if you want a specific report removed</td></tr>
+        <tr><td>Safety-guard records (§3.3)</td><td>Kept until you delete your account, at which point they are deleted with it. There is no automatic time limit on these today, and we would rather say so than imply one</td></tr>
+        <tr><td>Security logs</td><td>30 days, then deleted unless under active investigation</td></tr>
         <tr><td>Communications with our support team</td><td>2 years from the last message, then deleted</td></tr>
       </tbody>
     </table>
@@ -415,7 +464,7 @@
       <li><strong>Right to correction.</strong> Update inaccurate or incomplete data. Most fields are editable from inside the app.</li>
       <li><strong>Right to erasure.</strong> Delete your data. Account deletion is available in <em>Profile → Delete Account</em> inside the app and triggers a hard cascade-delete on our servers.</li>
       <li><strong>Right to portability.</strong> Get a machine-readable export of your account data on request.</li>
-      <li><strong>Right to withdraw consent.</strong> Where we rely on your consent (e.g., religious profile fields, push notifications, crash reports), you can withdraw it at any time without affecting the lawfulness of past processing.</li>
+      <li><strong>Right to withdraw consent.</strong> Where we rely on your consent (e.g., religious profile fields, push notifications, crash and error diagnostics), you can withdraw it at any time without affecting the lawfulness of past processing. Diagnostics have their own switch in <em>Profile → Privacy &amp; safety</em>; see §3.6.</li>
       <li><strong>Right to object</strong> to processing based on our legitimate interests, on grounds relating to your particular situation.</li>
       <li><strong>Right to restrict</strong> processing while we investigate a dispute about the data's accuracy or our basis for using it.</li>
       <li><strong>Right to nominate</strong> (DPDP §14): you may nominate, in writing, another individual to exercise your rights on your behalf in the event of your death or incapacity.</li>
@@ -429,9 +478,11 @@
     <p><strong>What happens:</strong></p>
     <ul>
       <li>Your <code>users</code> row in our database is removed immediately.</li>
-      <li>A database <code>ON DELETE CASCADE</code> wipes all records that reference your account: chat sessions and messages, daily check-ins, meditation sessions, community posts, comments, likes, reports you filed, push tokens, subscription records, karma events, and bookmarks.</li>
-      <li>Your Firebase Authentication identity is detached, freeing your email to register a new account.</li>
+      <li>A database <code>ON DELETE CASCADE</code> wipes all records that reference your account: chat sessions and messages, daily check-ins, meditation sessions, community posts, comments, likes, prayer requests you posted and prayers you offered on other people's, reports you filed, safety-guard records, push tokens, subscription records, and karma events.</li>
+      <li>Your Firebase Authentication identity is deleted, freeing your email to register a new account.</li>
       <li>Encrypted database backups containing your data roll off within 30 days.</li>
+      <li><strong>Crash reports are stripped of your identity rather than deleted outright.</strong> We remove your Firebase UID and we empty the breadcrumb trail, so the report no longer points at you. What is left is the error message, the stack trace, the device model, the OS and app version, the screen, and the install ID for that device. Those remnants are then deleted by the normal 90-day sweep described in §10. We keep them for that short window because deleting the evidence of a bug the moment the affected user leaves is how a bug becomes permanent. Crash reports already sent to Sentry are not touched by this flow; email <a href="mailto:privacy@dharmachat.in">privacy@dharmachat.in</a> if you want those removed too and we will do it by hand.</li>
+      <li><strong>Data held only on your own phone is not touched, because we cannot reach it.</strong> Your journal entries, the goals you are working to release, your seva log, your saved lines, and your reading position are stored on your device and never sent to us, so deleting your account on our servers does nothing to them. Delete them in the app, or uninstall the app, to clear them.</li>
       <li>Tax and payment records linked to past purchases are retained for the statutory 8 years and are anonymised where possible (we keep the minimum required: invoice number, amount, date, not your spiritual profile).</li>
     </ul>
     <p>Deletion is irreversible. We cannot recover a deleted account or its content.</p>
