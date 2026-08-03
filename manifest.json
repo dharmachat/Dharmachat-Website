@@ -1,7 +1,7 @@
 {
   "name": "DharmaChat: Hindu Scripture AI",
   "short_name": "DharmaChat",
-  "description": "India's #1 AI Hindu Scripture App. Explore the Bhagavad Gita, Ramayana, Mahabharata, Upanishads and Vedas with AI guidance in 7 Indian languages.",
+  "description": "AI Hindu Scripture App. Explore the Bhagavad Gita, Ramayana, Mahabharata, Upanishads and Vedas with AI guidance in English, Hindi and Kannada.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -51,7 +51,7 @@
       "name": "Daily Shloka",
       "short_name": "Shloka",
       "description": "Today's sacred verse",
-      "url": "/#shlokas-section",
+      "url": "/#shloka-of-the-day",
       "icons": [{ "src": "/logo.jpeg", "sizes": "96x96" }]
     }
   ]

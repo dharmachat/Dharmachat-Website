@@ -71,10 +71,10 @@ const isActive = (href) => (path === href || path === href.replace('.html','')) 
 
 const navLinks = [
   { href:'index.html',     emoji:'🏠', label:'Home' },
-  { href:'articles.html',  emoji:'📖', label:'Dharma Articles', badge:'2,000+' },
+  { href:'articles.html',  emoji:'📖', label:'Dharma Articles' },
   { href:'lessons.html',   emoji:'📚', label:'Learn' },
-  { href:'chat.html',      emoji:'🤖', label:'AI Chat' },
-  { href:'premium.html',   emoji:'👑', label:'Premium', badge:'7-day free' },
+  { href:'chat.html',      emoji:'🤖', label:'DharmaAI', badge:'in the app' },
+  { href:'premium.html',   emoji:'👑', label:'Premium' },
 ];
 
 const googleSVG = (w, h) => `<svg width="${w}" height="${h}" viewBox="0 0 24 24">
@@ -170,7 +170,7 @@ function buildDrawer() {
 
   const ctaBtnHtml = premium
     ? `<a id="dcDrawerCta" href="bhagavad-gita-18-chapters.html" style="background:linear-gradient(135deg,#8B1A1A,#D4A017);">📖 Read Scriptures</a>`
-    : `<a id="dcDrawerCta" href="chat.html">Ask DharmaChat AI →</a>`;
+    : `<a id="dcDrawerCta" href="chat.html">DharmaAI · coming in the app →</a>`;
 
   const drawerEl = document.createElement('div');
   drawerEl.id = 'dcDrawer';
@@ -226,7 +226,7 @@ function updateDrawerPremiumState() {
       ctaLink.style.background = 'linear-gradient(135deg,#8B1A1A,#D4A017)';
     } else {
       ctaLink.href = 'chat.html';
-      ctaLink.textContent = 'Ask DharmaChat AI →';
+      ctaLink.textContent = 'DharmaAI · coming in the app →';
       ctaLink.style.background = '';
     }
   }
@@ -238,9 +238,28 @@ function buildBurger() {
   burger.className = 'dc-burger';
   burger.setAttribute('aria-label', 'Open menu');
   burger.innerHTML = '<span></span><span></span><span></span>';
-  const nav = document.querySelector('nav');
-  if (!nav) return burger;
-  const navRight = nav.querySelector('.nav-cta,.nav-right,.topbar-right,.nav-links');
+  // buildDrawer() has already appended a <nav> of its own inside .dc-drawer,
+  // so a bare querySelector('nav') can match the drawer's own nav on pages
+  // that have no page-level <nav> (premium.html). That would bury the burger
+  // inside the closed drawer and leave the page with no way to open it.
+  const nav = [...document.querySelectorAll('nav')].find(n => !n.closest('.dc-drawer'));
+  if (!nav) {
+    // No page-level <nav> (premium.html): fall back to the page's own bar so
+    // the burger sits in the flex row instead of covering it.
+    const bar = document.querySelector('.topbar, .nav-inner');
+    if (bar) bar.appendChild(burger);
+    else document.body.appendChild(burger);
+    return burger;
+  }
+  // Try the containers in priority order. querySelector with a comma list
+  // returns the first match in DOCUMENT order, not selector order, so on
+  // pages where .nav-links is markup-first it used to win over .nav-cta and
+  // the burger got buried in the element that mobile CSS hides.
+  let navRight = null;
+  for (const sel of ['.nav-cta', '.nav-right', '.topbar-right', '.nav-links']) {
+    navRight = nav.querySelector(sel);
+    if (navRight) break;
+  }
   if (navRight) navRight.insertBefore(burger, navRight.firstChild);
   else nav.appendChild(burger);
   return burger;

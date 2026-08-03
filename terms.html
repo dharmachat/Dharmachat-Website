@@ -54,7 +54,7 @@
   .nav-links { display:flex; gap:28px; list-style:none; }
   .nav-links a { font-family:'Cinzel',serif; font-size:13px; font-weight:600; color:var(--text-mid); letter-spacing:.04em; }
   .nav-links a:hover { color:var(--saffron); text-decoration:none; }
-  @media (max-width:760px){ .nav-links { display:none; } }
+  @media (max-width:860px){ .nav-links { display:none; } }
 
   .legal-hero { padding:64px 24px 32px; text-align:center; max-width:1100px; margin:0 auto; }
   .eyebrow { font-family:'Cinzel',serif; font-size:12px; letter-spacing:.18em; color:var(--saffron); text-transform:uppercase; margin-bottom:12px; }
@@ -130,6 +130,7 @@
       
       <li><a href="/premium.html">Premium</a></li>
     </ul>
+    <div class="nav-cta" style="display:flex;align-items:center;"></div>
   </div>
 </nav>
 
@@ -144,7 +145,7 @@
 
     <div class="summary-box">
       <h3>The Short Version</h3>
-      <p>These Terms are the contract between you and DharmaChat. By using the Service you agree to them. The points that matter most: DharmaAI is a guide, not a substitute for a real guru, doctor, or lawyer; you must be at least 13 years old; you own the content you post but grant us a licence to display it; auto-renewing subscriptions can be cancelled at any time; you cannot post hateful, illegal, or harmful content; disputes are resolved by arbitration in Bengaluru under Indian law. Read the rest before you sign up, we wrote it in plain English on purpose.</p>
+      <p>These Terms are the contract between you and DharmaChat. By using the Service you agree to them. The points that matter most: DharmaAI is a guide, not a substitute for a real guru, doctor, or lawyer; you must be at least 13 years old; you own the content you post but grant us a licence to display it; a web purchase is a one-time payment that simply expires, while store subscriptions auto-renew and can be cancelled at any time; you cannot post hateful, illegal, or harmful content; disputes are resolved by arbitration in Bengaluru under Indian law. Read the rest before you sign up, we wrote it in plain English on purpose.</p>
     </div>
 
     <details class="toc-collapse">
@@ -248,17 +249,21 @@
     </table>
     <p>By subscribing, you also accept the relevant processor's terms.</p>
 
-    <h3>7.3 Auto-renewal</h3>
-    <p>Subscriptions auto-renew at the end of each billing period at the then-current price unless you cancel at least 24 hours before the renewal date. We will notify you by email of any price increase at least 30 days before it takes effect; if you do not accept the increase, you may cancel before it applies.</p>
+    <h3>7.3 Renewal</h3>
+    <p>Whether your purchase renews depends on where you bought it:</p>
+    <ul>
+      <li><strong>Web (Razorpay):</strong> a web purchase is a <strong>one-time payment</strong>, not an auto-renewing subscription. It gives you Premium for the term you paid for (one month or one year) and then simply expires. Nothing is charged again, and there is nothing to cancel. To continue, you buy another term.</li>
+      <li><strong>App Store and Google Play:</strong> store subscriptions auto-renew at the end of each billing period at the then-current price unless you cancel at least 24 hours before the renewal date, in line with Apple's and Google's rules.</li>
+    </ul>
+    <p>We will notify you by email of any price increase at least 30 days before it takes effect.</p>
 
     <h3>7.4 Cancellation</h3>
-    <p>You may cancel at any time:</p>
     <ul>
-      <li><strong>Web and Android (Razorpay):</strong> in the app under <em>Profile → Subscription → Cancel</em>, or by emailing <a href="mailto:support@dharmachat.in">support@dharmachat.in</a>;</li>
+      <li><strong>Web (Razorpay):</strong> nothing recurring exists, so there is no cancellation to make. Your access ends on its own at the end of the term. For a refund inside the eligible window, see <a href="#refunds">Refunds</a> below.</li>
       <li><strong>iOS:</strong> through your Apple ID subscription settings (we cannot cancel App Store subscriptions on your behalf. Apple controls this);</li>
       <li><strong>Google Play:</strong> through the Play Store subscription settings.</li>
     </ul>
-    <p>After cancellation, you keep Premium access until the end of the current billing period. We do not pro-rate refunds for unused time after voluntary cancellation, except where the law requires it.</p>
+    <p>After cancelling a store subscription, you keep Premium access until the end of the current billing period. We do not pro-rate refunds for unused time after voluntary cancellation, except where the law requires it.</p>
 
     <h2 id="refunds"><span class="num">8.</span>Refunds</h2>
     <p>Refund eligibility depends on where and how you bought your subscription:</p>
@@ -487,5 +492,7 @@
 .dc-footer-col a:hover{color:rgba(255,255,255,0.75)}
 .dc-footer-bottom{border-top:1px solid rgba(255,255,255,0.07);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .dc-footer-bottom p{font-family:'Cinzel',serif;font-size:11px;color:rgba(255,255,255,0.22);letter-spacing:.04em}
-</style></body>
+</style>
+<script type="module" src="nav.js"></script>
+</body>
 </html>

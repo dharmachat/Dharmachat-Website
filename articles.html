@@ -241,7 +241,7 @@ footer{background:var(--maroon-dk);color:rgba(255,255,255,0.6);padding:60px 0 32
 <div class="section-label">&#10022; FEATURED ARTICLE</div>
 <div id="featuredLink" class="featured-article" onclick="scrollToFeatured(event)" style="cursor:pointer;">
   <div id="featuredPlaceholder" class="featured-img-placeholder" style="background:linear-gradient(135deg,#3E0000,#6B1A1A);">
-    <img id="featuredImg" src="article-krishna.jpg" alt="Featured Article" loading="lazy"
+    <img id="featuredImg" src="krishna.png" alt="Featured Article" loading="lazy"
          onload="this.style.display='block';document.getElementById('featuredEmoji').style.display='none';"
          onerror="this.style.display='none';document.getElementById('featuredEmoji').style.display='block';"/>
     <span id="featuredEmoji" style="font-size:80px;">&#x1F99A;</span>
@@ -817,14 +817,14 @@ footer{background:var(--maroon-dk);color:rgba(255,255,255,0.6);padding:60px 0 32
           <li><a href="about.html">About Us</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="privacy.html">Terms &amp; Conditions</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>Copyright &copy; 2026 DharmaChat. All Rights Reserved.</span>
       <span>Made with reverence in India &nbsp;&bull;&nbsp; Founded &amp; built by Sukhil Babu &middot; Bengaluru</span>
-      <div style="display:flex;gap:16px;"><a href="privacy.html">Privacy Policy</a><a href="privacy.html">Terms &amp; Conditions</a></div>
+      <div style="display:flex;gap:16px;"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a></div>
     </div>
   </div>
 </footer>
@@ -833,7 +833,7 @@ footer{background:var(--maroon-dk);color:rgba(255,255,255,0.6);padding:60px 0 32
 // ── Featured article, rotates by day of month ────────────
 // ── Featured article, rotates daily, click scrolls to card ─────
 var featured=[
-  {url:'who-is-lord-krishna.html', slug:'who-is-lord-krishna', img:'article-krishna.jpg',
+  {url:'who-is-lord-krishna.html', slug:'who-is-lord-krishna', img:'krishna.png',
    bg:'linear-gradient(135deg,#3E0000,#6B1A1A)', emoji:'\uD83E\uDD9A',
    tag:'\uD83C\uDF38 BHAGAVAD GITA',
    title:'Who is Lord Krishna? Life, Teachings, and Divine Legacy',
@@ -849,7 +849,7 @@ var featured=[
    excerpt:'Rama \u2014 the seventh avatar of Vishnu \u2014 is the maryada purushottama, the supreme upholder of dharma in every circumstance of life.',
    shloka:'Ramo vigrahavan dharmah \u2014 Rama is dharma in human form.',
    ref:'Valmiki Ramayana'},
-  {url:'what-is-moksha.html', slug:'what-is-moksha', img:'article-moksha.jpg',
+  {url:'what-is-moksha.html', slug:'what-is-moksha', img:'moksha.png',
    bg:'linear-gradient(135deg,#003040,#006080)', emoji:'\uD83C\uDF0A',
    tag:'\uD83C\uDF0A UPANISHADS',
    title:'What is Moksha? The Path to Liberation Explained',
@@ -881,7 +881,7 @@ var featured=[
    excerpt:'The firstborn son of Kunti and the Sun God \u2014 abandoned at birth, rejected by society, yet arguably the greatest warrior of the Mahabharata.',
    shloka:'Dana dharma sammotam \u2014 Generosity is among the highest dharmas.',
    ref:'Mahabharata'},
-  {url:'who-is-hanuman.html', slug:'who-is-hanuman', img:'article-hanuman.jpg',
+  {url:'who-is-hanuman.html', slug:'who-is-hanuman', img:'hanuman2.png',
    bg:'linear-gradient(135deg,#3E1A00,#C45A00)', emoji:'\uD83D\uDE4F',
    tag:'\uD83E\uDD5A RAMAYANA',
    title:'Who is Hanuman? The Greatest Devotee in All of Scripture',

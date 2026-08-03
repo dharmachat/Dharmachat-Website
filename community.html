@@ -33,7 +33,10 @@
 <meta name="twitter:image" content="https://dharmachat.in/logo.jpeg"/>
 
 <!-- SEO: Additional -->
-<meta name="robots" content="index, follow"/>
+<!-- Kept out of the index until the prayer wall actually works: firestore.rules
+     has no match block for community_comments, so reads and writes are denied.
+     Also removed from sitemap.xml. Restore both together. -->
+<meta name="robots" content="noindex, follow"/>
 <meta name="author" content="DharmaChat"/>
 <meta name="keywords" content="dharma community, hindu community, satsang online, dharma discussion, devotee forum"/>
 
@@ -251,11 +254,6 @@ footer a{color:rgba(240,192,64,0.6);text-decoration:none;margin:0 12px}
   </div>
 </nav>
 
-<script type="module">
-import { initNavAuth } from './auth.js';
-initNavAuth();
-</script>
-
 <!-- HERO -->
 <div class="hero">
   <div class="hero-tag">✦ DHARMA SABHA</div>
@@ -357,89 +355,6 @@ initNavAuth();
         </div>
       </div>
 
-      <div class="post-card" data-sabha="gita">
-        <div class="post-meta">
-          <div class="post-avatar" style="background:linear-gradient(135deg,#005040,#009060)">P</div>
-          <div>
-            <div class="post-author">Priya M. <span class="post-rank rank-shishya">Shishya</span></div>
-            <div style="font-family:'Cinzel',serif;font-size:9px;color:#aaa;letter-spacing:.05em">Chennai · 2 hours ago</div>
-          </div>
-          <div class="post-time"><span class="post-sabha">Gita Sabha</span></div>
-        </div>
-        <div class="post-title">Krishna says "do your duty without attachment to results", but how do we stay motivated?</div>
-        <div class="post-preview">I've been reflecting on Gita 2.47, karma without attachment to fruits. But in practical life, results matter, promotions, success, family wellbeing. How do you balance this teaching with real-world motivation?</div>
-        <div class="post-shloka-inline">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन: Bhagavad Gita 2.47</div>
-        <div class="post-footer">
-          <button class="post-action" onclick="likePost(this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <span>18</span>
-          </button>
-          <button class="post-action" onclick="openReply()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span>Reply</span>
-          </button>
-          <button class="post-action" onclick="askAI('What does the Bhagavad Gita say about doing duty without attachment to results')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <span>Ask AI</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="post-card" data-sabha="ramayana">
-        <div class="post-meta">
-          <div class="post-avatar" style="background:linear-gradient(135deg,#3E1A00,#8B3A00)">R</div>
-          <div>
-            <div class="post-author">Rajan T. <span class="post-rank rank-sadhak">Sadhak</span></div>
-            <div style="font-family:'Cinzel',serif;font-size:9px;color:#aaa;letter-spacing:.05em">Coimbatore · 5 hours ago</div>
-          </div>
-          <div class="post-time"><span class="post-sabha">Ramayana Sabha</span></div>
-        </div>
-        <div class="post-title">What can modern families learn from the bond between Rama and Bharata?</div>
-        <div class="post-preview">Bharata refused to sit on the throne even when Rama was exiled. He placed Rama's padukas (sandals) on the throne and ruled as a regent. In a world where siblings fight over property and inheritance, this story moves me deeply. What does this teach us about family dharma?</div>
-        <div class="post-footer">
-          <button class="post-action" onclick="likePost(this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <span>31</span>
-          </button>
-          <button class="post-action" onclick="openReply()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span>Reply</span>
-          </button>
-          <button class="post-action" onclick="askAI('What does the Ramayana teach about family dharma through the bond of Rama and Bharata')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <span>Ask AI</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="post-card" data-sabha="upanishad">
-        <div class="post-meta">
-          <div class="post-avatar" style="background:linear-gradient(135deg,#003040,#006080)">A</div>
-          <div>
-            <div class="post-author">Arjun M. <span class="post-rank rank-vidwan">Vidwan</span></div>
-            <div style="font-family:'Cinzel',serif;font-size:9px;color:#aaa;letter-spacing:.05em">Bengaluru · Yesterday</div>
-          </div>
-          <div class="post-time"><span class="post-sabha">Upanishad Sabha</span></div>
-        </div>
-        <div class="post-title">The Mandukya Upanishad and the 4 states of consciousness: AUM explained</div>
-        <div class="post-preview">The Mandukya is the shortest but perhaps the most profound Upanishad. It explains the 4 states: Jagrat (waking), Svapna (dreaming), Sushupti (deep sleep), and Turiya (pure consciousness). AUM represents all four. Has anyone explored this deeply?</div>
-        <div class="post-shloka-inline">ॐ इत्येतदक्षरमिदं सर्वम्, AUM, this syllable is all this., Mandukya Upanishad 1.1</div>
-        <div class="post-footer">
-          <button class="post-action" onclick="likePost(this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <span>42</span>
-          </button>
-          <button class="post-action" onclick="openReply()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span>Reply</span>
-          </button>
-          <button class="post-action" onclick="askAI('Explain the Mandukya Upanishad and the 4 states of consciousness')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <span>Ask AI</span>
-          </button>
-          <span class="post-tag">TRENDING</span>
-        </div>
-      </div>
 
     </div>
 
@@ -492,56 +407,6 @@ initNavAuth();
       <a href="chat.html" style="display:block;text-align:center;margin-top:16px;padding:10px;background:linear-gradient(135deg,var(--saffron),var(--gold));border-radius:50px;font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:white;text-decoration:none;letter-spacing:.05em">Ask the AI Guru →</a>
     </div>
 
-    <!-- WEEKLY LEADERBOARD -->
-    <div class="sidebar-card">
-      <h3>🏆 Dharma Champions</h3>
-      <div style="font-family:'EB Garamond',serif;font-style:italic;font-size:12px;color:#aaa;margin-bottom:14px;">Weekly leaderboard, resets every Sunday</div>
-      <div class="rank-item">
-        <div class="rank-num gold">1</div>
-        <div class="rank-avatar" style="background:linear-gradient(135deg,#005040,#009060)">A</div>
-        <div class="rank-info">
-          <div class="rank-name">Arjun M.</div>
-          <div class="rank-title">Vidwan · Bengaluru</div>
-        </div>
-        <div class="rank-points">2,840 ✨</div>
-      </div>
-      <div class="rank-item">
-        <div class="rank-num silver">2</div>
-        <div class="rank-avatar" style="background:linear-gradient(135deg,#3E1A00,#8B3A00)">R</div>
-        <div class="rank-info">
-          <div class="rank-name">Rajan T.</div>
-          <div class="rank-title">Sadhak · Coimbatore</div>
-        </div>
-        <div class="rank-points">1,920 ✨</div>
-      </div>
-      <div class="rank-item">
-        <div class="rank-num bronze">3</div>
-        <div class="rank-avatar" style="background:linear-gradient(135deg,#1A003E,#4A0060)">P</div>
-        <div class="rank-info">
-          <div class="rank-name">Priya M.</div>
-          <div class="rank-title">Shishya · Chennai</div>
-        </div>
-        <div class="rank-points">1,440 ✨</div>
-      </div>
-      <div class="rank-item">
-        <div class="rank-num">4</div>
-        <div class="rank-avatar" style="background:linear-gradient(135deg,var(--maroon),var(--saffron))">D</div>
-        <div class="rank-info">
-          <div class="rank-name">Deepa K.</div>
-          <div class="rank-title">Shishya · Mysuru</div>
-        </div>
-        <div class="rank-points">980 ✨</div>
-      </div>
-      <div class="rank-item">
-        <div class="rank-num">5</div>
-        <div class="rank-avatar" style="background:linear-gradient(135deg,#003040,#006080)">L</div>
-        <div class="rank-info">
-          <div class="rank-name">Lakshmi R.</div>
-          <div class="rank-title">Jigyasu · Hyderabad</div>
-        </div>
-        <div class="rank-points">720 ✨</div>
-      </div>
-    </div>
 
     <!-- BADGES -->
     <div class="sidebar-card">
@@ -715,7 +580,10 @@ window.submitComment = async function() {
     document.getElementById('commentText').value = '';
     addPunya(15);
   } catch(e) {
+    // Previously this failed with nothing but a console line, so the Post
+    // button looked like it simply did nothing.
     console.error('Error posting comment:', e);
+    alert('Reflections are not open yet. Your words were not posted. Please try again once the wall goes live.');
   }
 };
 
@@ -747,6 +615,17 @@ onSnapshot(q, (snapshot) => {
     container.appendChild(div);
   });
   document.getElementById('commentCountLabel').textContent = snapshot.size + ' reflections shared';
+}, (err) => {
+  // Without this the listener fails silently and the panel is stuck on
+  // "Loading reflections..." forever. firestore.rules has no match block for
+  // community_comments, so today this always lands on permission-denied.
+  console.error('community_comments listener failed:', err.code, err.message);
+  const container = document.getElementById('commentsList');
+  if (container) {
+    container.innerHTML = '<div style="text-align:center;padding:32px;font-family:EB Garamond,serif;font-style:italic;font-size:16px;color:#aaa;">Reflections are not open yet. 🙏</div>';
+  }
+  const label = document.getElementById('commentCountLabel');
+  if (label) label.textContent = 'not open yet';
 });
 </script>
 
